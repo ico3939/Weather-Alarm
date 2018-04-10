@@ -27,8 +27,9 @@ class ViewController: UIViewController {
     // -------------
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var startButton: UIButton!
+    @IBOutlet weak var weatherLabel: UILabel!
     
-    
+    @IBOutlet weak var datePicker: UIDatePicker!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,7 +91,8 @@ class ViewController: UIViewController {
                 switch result {
                 case .success(let currentForecast, _):
                     // we got the current forecast
-                    print("\(String(describing: currentForecast.daily?.data.first?.sunriseTime?.description))")
+                    print("\(String(describing: currentForecast.currently?.summary))")
+                    self.weatherLabel.text = currentForecast.currently?.summary
                 case .failure(let error):
                     // there was an error
                     print("\(error)")
@@ -114,7 +116,13 @@ class ViewController: UIViewController {
         seconds = startTime // here we manually enter the restarting point for seconds
         
         self.timeLabel.text = timeString(time: TimeInterval(seconds))
-        runTimer()
+        
+    }
+    @IBAction func dateChosen(_ sender: Any) {
+        print("\(datePicker.countDownDuration)")
+        
+        seconds = Int(datePicker.countDownDuration)
+        timeLabel.text = timeString(time: TimeInterval(seconds))
     }
     
     

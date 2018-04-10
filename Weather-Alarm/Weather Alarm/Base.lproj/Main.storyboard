@@ -51,25 +51,58 @@
                                     <action selector="resetButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HcX-Bm-6gP"/>
                                 </connections>
                             </button>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="fpd-14-nst">
+                                <rect key="frame" x="0.0" y="505" width="375" height="162"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="162" id="hpt-fK-qZG"/>
+                                </constraints>
+                                <date key="date" timeIntervalSinceReferenceDate="545024078.54073799">
+                                    <!--2018-04-10 03:34:38 +0000-->
+                                </date>
+                                <connections>
+                                    <action selector="dateChosen:" destination="BYZ-38-t0r" eventType="valueChanged" id="bLp-cm-uRC"/>
+                                </connections>
+                            </datePicker>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Weather:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u2T-8y-aI2">
+                                <rect key="frame" x="13" y="87" width="188" height="29"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="________" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z44-co-yq5">
+                                <rect key="frame" x="217" y="87" width="83" height="29"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.76305456606217614" green="0.76305456606217614" blue="0.76305456606217614" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Qxk-7G-o0Y" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="238" id="28H-AA-Hoe"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="eUg-Ga-SMp" secondAttribute="trailing" constant="116" id="70i-OT-8EN"/>
+                            <constraint firstItem="u2T-8y-aI2" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="67" id="7sf-7T-fNY"/>
                             <constraint firstItem="xne-59-YCI" firstAttribute="firstBaseline" secondItem="Qxk-7G-o0Y" secondAttribute="baseline" constant="44" symbolType="layoutAnchor" id="8br-bR-ijO"/>
+                            <constraint firstItem="fpd-14-nst" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="A5c-hL-1W0"/>
                             <constraint firstItem="xne-59-YCI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="123" id="AiQ-tS-Nib"/>
+                            <constraint firstItem="fpd-14-nst" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="CU9-DI-EsP"/>
                             <constraint firstItem="Qxk-7G-o0Y" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Cd8-dV-UHn"/>
                             <constraint firstItem="eUg-Ga-SMp" firstAttribute="top" secondItem="Qxk-7G-o0Y" secondAttribute="bottom" constant="-6" id="DUr-te-bcD"/>
+                            <constraint firstItem="fpd-14-nst" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Dv0-uN-lDz"/>
+                            <constraint firstItem="Z44-co-yq5" firstAttribute="leading" secondItem="u2T-8y-aI2" secondAttribute="trailing" constant="16" id="Gd7-JR-ino"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Qxk-7G-o0Y" secondAttribute="trailing" id="JNJ-cL-R23"/>
                             <constraint firstItem="Qxk-7G-o0Y" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="UHY-mo-Ts5"/>
+                            <constraint firstItem="u2T-8y-aI2" firstAttribute="baseline" secondItem="Z44-co-yq5" secondAttribute="baseline" id="URq-V4-Zd7"/>
+                            <constraint firstItem="Z44-co-yq5" firstAttribute="leading" secondItem="eUg-Ga-SMp" secondAttribute="leading" id="gnI-OG-1dS"/>
                             <constraint firstItem="eUg-Ga-SMp" firstAttribute="leading" secondItem="xne-59-YCI" secondAttribute="trailing" constant="56" id="l8b-LS-pX0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="TimeLabel" destination="Qxk-7G-o0Y" id="HKF-Xa-ZsZ"/>
+                        <outlet property="datePicker" destination="fpd-14-nst" id="WDB-Oo-BBv"/>
                         <outlet property="startButton" destination="xne-59-YCI" id="43Q-mX-dvL"/>
                         <outlet property="timeLabel" destination="Qxk-7G-o0Y" id="3hP-vI-coW"/>
+                        <outlet property="weatherLabel" destination="Z44-co-yq5" id="Dej-Hf-v9s"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
