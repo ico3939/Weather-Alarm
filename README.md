@@ -9,4 +9,4 @@ Milestone1:
   - Once the time is chosen, the timer will begin to count down
   - Once the timer reaches zero, the summary of the current weather is displaced
   
-  
+  /Users/student/Documents/Weather-Alarm/Screens/Milestone-1.png
