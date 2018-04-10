@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     let client = DarkSkyClient(apiKey: "327180fccdc777b85e2b1fdbb6adab37") // creates a client to use with the api
     let locationManager = CLLocationManager()
     let startTime = 10
+    let currentDate = Date()
     
     var seconds = 0 // this variable will hold a starting value of seconds. It can be any amount above zero
     var timer = Timer()
@@ -41,6 +42,8 @@ class ViewController: UIViewController {
         
         seconds = startTime // set the start time
         self.timeLabel.text = timeString(time: TimeInterval(seconds))
+        
+        
         
     }
     
@@ -92,7 +95,12 @@ class ViewController: UIViewController {
                 case .success(let currentForecast, _):
                     // we got the current forecast
                     print("\(String(describing: currentForecast.currently?.summary))")
-                    self.weatherLabel.text = currentForecast.currently?.summary
+                    
+                    DispatchQueue.main.async(execute: {() -> Void in
+                        
+                        self.weatherLabel.text = currentForecast.currently?.summary
+                        
+                    })
                 case .failure(let error):
                     // there was an error
                     print("\(error)")
@@ -100,6 +108,7 @@ class ViewController: UIViewController {
             }
         }
     }
+    
     
     // MARK: IBActions
     // ---------------
@@ -116,12 +125,14 @@ class ViewController: UIViewController {
         seconds = startTime // here we manually enter the restarting point for seconds
         
         self.timeLabel.text = timeString(time: TimeInterval(seconds))
-        
+        runTimer()
     }
     @IBAction func dateChosen(_ sender: Any) {
-        print("\(datePicker.countDownDuration)")
         
-        seconds = Int(datePicker.countDownDuration)
+        seconds = Int(datePicker.date.timeIntervalSinceNow)
+        if seconds < 0 {
+            seconds = 0
+        }
         timeLabel.text = timeString(time: TimeInterval(seconds))
     }
     
