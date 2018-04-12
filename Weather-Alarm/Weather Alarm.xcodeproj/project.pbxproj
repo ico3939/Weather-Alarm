@@ -12,6 +12,7 @@
 		3F76C890207C024900277468 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F76C88E207C024900277468 /* Main.storyboard */; };
 		3F76C892207C024900277468 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F76C891207C024900277468 /* Assets.xcassets */; };
 		3F76C895207C024900277468 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F76C893207C024900277468 /* LaunchScreen.storyboard */; };
+		3FD60A262080134600756DEF /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD60A252080134600756DEF /* Alarm.swift */; };
 		97BFB2E86697F7CC232E180F /* Pods_Weather_Alarm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D27B528B8A46B55F3F8DEBED /* Pods_Weather_Alarm.framework */; };
 /* End PBXBuildFile section */
 
@@ -24,6 +25,7 @@
 		3F76C891207C024900277468 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3F76C894207C024900277468 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3F76C896207C024900277468 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3FD60A252080134600756DEF /* Alarm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
 		A2678A42F0AC514D720E97DC /* Pods-Weather Alarm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weather Alarm.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Weather Alarm/Pods-Weather Alarm.debug.xcconfig"; sourceTree = "<group>"; };
 		D27B528B8A46B55F3F8DEBED /* Pods_Weather_Alarm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Weather_Alarm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -71,12 +73,21 @@
 			children = (
 				3F76C88A207C024900277468 /* AppDelegate.swift */,
 				3F76C88C207C024900277468 /* ViewController.swift */,
+				3FD60A272080143A00756DEF /* Model */,
 				3F76C88E207C024900277468 /* Main.storyboard */,
 				3F76C891207C024900277468 /* Assets.xcassets */,
 				3F76C893207C024900277468 /* LaunchScreen.storyboard */,
 				3F76C896207C024900277468 /* Info.plist */,
 			);
 			path = "Weather Alarm";
+			sourceTree = "<group>";
+		};
+		3FD60A272080143A00756DEF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3FD60A252080134600756DEF /* Alarm.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		5BD61B2B8E68BD393182C2A4 /* Pods */ = {
@@ -203,6 +214,7 @@
 			files = (
 				3F76C88D207C024900277468 /* ViewController.swift in Sources */,
 				3F76C88B207C024900277468 /* AppDelegate.swift in Sources */,
+				3FD60A262080134600756DEF /* Alarm.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

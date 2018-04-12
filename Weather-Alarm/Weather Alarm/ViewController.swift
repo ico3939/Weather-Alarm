@@ -11,6 +11,7 @@ import CoreLocation
 import ForecastIO
 
 
+
 class ViewController: UIViewController {
     
     // MARK: ivars
@@ -18,11 +19,12 @@ class ViewController: UIViewController {
     let client = DarkSkyClient(apiKey: "327180fccdc777b85e2b1fdbb6adab37") // creates a client to use with the api
     let locationManager = CLLocationManager()
     let startTime = 10
-    let currentDate = Date()
+    let secondsInDay = 86400
     
     var seconds = 0 // this variable will hold a starting value of seconds. It can be any amount above zero
     var timer = Timer()
     var isTimeRunning = false // this will be used to make sure only one timer is created at a time
+    
     
     // MARK: Outlets
     // -------------
@@ -43,7 +45,10 @@ class ViewController: UIViewController {
         seconds = startTime // set the start time
         self.timeLabel.text = timeString(time: TimeInterval(seconds))
         
+        // initialize the dateTimePicker
+        datePicker.datePickerMode = UIDatePickerMode.time
         
+
         
     }
     
@@ -79,9 +84,9 @@ class ViewController: UIViewController {
     }
     
     func timerComplete() {
+        isTimeRunning = false
         timer.invalidate()
         startButton.isEnabled = true
-        // TODO: This is where the logic for getting the current weather and playing the subsequent tone will go
         
         // Once the user's location is known, the api will check for current weather condition at that location
         if CLLocationManager.locationServicesEnabled() {
@@ -114,11 +119,14 @@ class ViewController: UIViewController {
     // ---------------
     @IBAction func startButtonTapped(_ sender: Any) {
         if isTimeRunning == false {
+            timer.invalidate()
             runTimer()
             startButton.isEnabled = false
         }
         
+        
     }
+    
     @IBAction func resetButtonTapped(_ sender: Any) {
         timer.invalidate()
         
@@ -127,11 +135,11 @@ class ViewController: UIViewController {
         self.timeLabel.text = timeString(time: TimeInterval(seconds))
         runTimer()
     }
+    
     @IBAction func dateChosen(_ sender: Any) {
-        
         seconds = Int(datePicker.date.timeIntervalSinceNow)
         if seconds < 0 {
-            seconds = 0
+            seconds += secondsInDay
         }
         timeLabel.text = timeString(time: TimeInterval(seconds))
     }
