@@ -9,6 +9,7 @@
 import UIKit
 import CoreLocation
 import ForecastIO
+import AVFoundation
 
 class Alarm: NSObject {
 
@@ -23,16 +24,29 @@ class Alarm: NSObject {
     var startTime:Int // the starting time in seconds
     var isRunning:Bool?
     var timer:Timer?
-    
-    
+    var player:AVAudioPlayer?
+    var weatherLabel:UILabel?
+    var timeLabel:UILabel?
     
     // MARK: constructor
     // -----------------
-    init(startTime:Int, locationManager: CLLocationManager, datePicker:UIDatePicker) {
+    init(startTime:Int, locationManager: CLLocationManager, datePicker:UIDatePicker, player:AVAudioPlayer, weatherLabel:UILabel, timeLabel:UILabel) {
         self.startTime = startTime
         self.currentTimeLeft = startTime
         self.locationManager = locationManager
         self.datePicker = datePicker
+        self.player = player
+        self.weatherLabel = weatherLabel
+        self.timeLabel = timeLabel
+    }
+    
+    override init() {
+        self.startTime = 10
+        self.currentTimeLeft = startTime
+        self.locationManager = nil
+        self.datePicker = nil
+        self.player = nil
+        self.weatherLabel = nil
     }
     
     // MARK: helper functions
@@ -40,7 +54,7 @@ class Alarm: NSObject {
     func runTimer() {
         isRunning = true
         timer?.invalidate()
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(self.updateTimer)), userInfo: nil, repeats: true)
     }
     
     func timerComplete() {
@@ -49,6 +63,13 @@ class Alarm: NSObject {
         timer = nil
         
         getWeatherInfo()
+    }
+    
+    func timeString(time:TimeInterval) -> String {
+        let hours = Int(time) / 3600
+        let minutes = Int(time) / 60 % 60
+        let seconds = Int(time) % 60
+        return String(format: "%02i:%02i:%02i", hours, minutes, seconds)
     }
     
     func getWeatherInfo() {
@@ -68,12 +89,13 @@ class Alarm: NSObject {
                     DispatchQueue.main.async(execute: {() -> Void in
                         
                         //TODO: Add in behavior to display weather result
-                        //self.weatherLabel.text = currentForecast.currently?.summary
+                        self.weatherLabel?.text = (currentForecast.currently?.icon).map { $0.rawValue }
                         
                     })
                 case .failure(let error):
                     // there was an error
                     print("\(error)")
+                    return
                 }
             }
         }
@@ -88,6 +110,7 @@ class Alarm: NSObject {
         }
         else {
             currentTimeLeft -= 1 // this will decrement (count down) the seconds
+            self.timeLabel?.text = self.timeString(time: TimeInterval(currentTimeLeft)) // this will update the label
         }
         
         

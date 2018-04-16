@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation
 import ForecastIO
-
+import AVFoundation
 
 
 class ViewController: UIViewController {
@@ -20,7 +20,9 @@ class ViewController: UIViewController {
     let locationManager = CLLocationManager()
     let startTime = 10
     let secondsInDay = 86400
+    let player = AVAudioPlayer()
     
+    var alarm = Alarm()
     var seconds = 0 // this variable will hold a starting value of seconds. It can be any amount above zero
     var timer = Timer()
     var isTimeRunning = false // this will be used to make sure only one timer is created at a time
@@ -43,10 +45,12 @@ class ViewController: UIViewController {
         self.locationManager.requestWhenInUseAuthorization() // For use in foreground
         
         seconds = startTime // set the start time
-        self.timeLabel.text = timeString(time: TimeInterval(seconds))
+        self.timeLabel.text = alarm.timeString(time: TimeInterval(seconds))
         
         // initialize the dateTimePicker
         datePicker.datePickerMode = UIDatePickerMode.time
+        
+        self.alarm = Alarm(startTime: self.startTime, locationManager: self.locationManager, datePicker: self.datePicker, player: self.player, weatherLabel: self.weatherLabel, timeLabel: self.timeLabel)
         
 
         
@@ -59,71 +63,14 @@ class ViewController: UIViewController {
         print("locations = \(locValue.latitude) \(locValue.longitude)")
     }
     
-    func runTimer() {
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
-    }
-    
-    func timeString(time:TimeInterval) -> String {
-        let hours = Int(time) / 3600
-        let minutes = Int(time) / 60 % 60
-        let seconds = Int(time) % 60
-        return String(format: "%02i:%02i:%02i", hours, minutes, seconds)
-    }
-    
-    @objc func updateTimer() {
-        // if time is up
-        if seconds < 1 {
-            timerComplete()
-        }
-        else {
-            seconds -= 1 // this will decrement (count down) the seconds
-            self.timeLabel.text = timeString(time: TimeInterval(seconds)) // this will update the label
-        }
-
-        
-    }
-    
-    func timerComplete() {
-        isTimeRunning = false
-        timer.invalidate()
-        startButton.isEnabled = true
-        
-        // Once the user's location is known, the api will check for current weather condition at that location
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self as? CLLocationManagerDelegate
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            locationManager.startUpdatingLocation()
-            print("location = \(String(describing: locationManager.location))")
-            
-            client.getForecast(latitude: (locationManager.location?.coordinate.latitude)!, longitude: (locationManager.location?.coordinate.longitude)!) { result in
-                switch result {
-                case .success(let currentForecast, _):
-                    // we got the current forecast
-                    print("\(String(describing: currentForecast.currently?.summary))")
-                    
-                    DispatchQueue.main.async(execute: {() -> Void in
-                        
-                        self.weatherLabel.text = currentForecast.currently?.summary
-                        
-                    })
-                case .failure(let error):
-                    // there was an error
-                    print("\(error)")
-                }
-            }
-        }
-    }
-    
     
     // MARK: IBActions
     // ---------------
     @IBAction func startButtonTapped(_ sender: Any) {
         if isTimeRunning == false {
-            timer.invalidate()
-            runTimer()
+            alarm.runTimer()
             startButton.isEnabled = false
         }
-        
         
     }
     
@@ -132,8 +79,8 @@ class ViewController: UIViewController {
         
         seconds = startTime // here we manually enter the restarting point for seconds
         
-        self.timeLabel.text = timeString(time: TimeInterval(seconds))
-        runTimer()
+        self.timeLabel.text = alarm.timeString(time: TimeInterval(seconds))
+        alarm.runTimer()
     }
     
     @IBAction func dateChosen(_ sender: Any) {
@@ -141,7 +88,7 @@ class ViewController: UIViewController {
         if seconds < 0 {
             seconds += secondsInDay
         }
-        timeLabel.text = timeString(time: TimeInterval(seconds))
+        timeLabel.text = alarm.timeString(time: TimeInterval(seconds))
     }
     
     

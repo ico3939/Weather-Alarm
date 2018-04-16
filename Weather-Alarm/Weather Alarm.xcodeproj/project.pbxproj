@@ -14,6 +14,7 @@
 		3F76C895207C024900277468 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F76C893207C024900277468 /* LaunchScreen.storyboard */; };
 		3FD60A262080134600756DEF /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD60A252080134600756DEF /* Alarm.swift */; };
 		97BFB2E86697F7CC232E180F /* Pods_Weather_Alarm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D27B528B8A46B55F3F8DEBED /* Pods_Weather_Alarm.framework */; };
+		A290D16520854237002A88AB /* MyFileFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A290D16420854237002A88AB /* MyFileFunctions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		3F76C896207C024900277468 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3FD60A252080134600756DEF /* Alarm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
 		A2678A42F0AC514D720E97DC /* Pods-Weather Alarm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weather Alarm.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Weather Alarm/Pods-Weather Alarm.debug.xcconfig"; sourceTree = "<group>"; };
+		A290D16420854237002A88AB /* MyFileFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFileFunctions.swift; sourceTree = "<group>"; };
 		D27B528B8A46B55F3F8DEBED /* Pods_Weather_Alarm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Weather_Alarm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -72,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				3F76C88A207C024900277468 /* AppDelegate.swift */,
+				A290D1632085421C002A88AB /* Lib */,
 				3F76C88C207C024900277468 /* ViewController.swift */,
 				3FD60A272080143A00756DEF /* Model */,
 				3F76C88E207C024900277468 /* Main.storyboard */,
@@ -97,6 +100,14 @@
 				0D8F84F5C14CCA38CEC844FA /* Pods-Weather Alarm.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		A290D1632085421C002A88AB /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				A290D16420854237002A88AB /* MyFileFunctions.swift */,
+			);
+			path = Lib;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -215,6 +226,7 @@
 				3F76C88D207C024900277468 /* ViewController.swift in Sources */,
 				3F76C88B207C024900277468 /* AppDelegate.swift in Sources */,
 				3FD60A262080134600756DEF /* Alarm.swift in Sources */,
+				A290D16520854237002A88AB /* MyFileFunctions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
