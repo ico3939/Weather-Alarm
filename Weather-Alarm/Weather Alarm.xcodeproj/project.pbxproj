@@ -8,12 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		3F76C88B207C024900277468 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F76C88A207C024900277468 /* AppDelegate.swift */; };
-		3F76C88D207C024900277468 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F76C88C207C024900277468 /* ViewController.swift */; };
+		3F76C88D207C024900277468 /* CountDownVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F76C88C207C024900277468 /* CountDownVC.swift */; };
 		3F76C890207C024900277468 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F76C88E207C024900277468 /* Main.storyboard */; };
 		3F76C892207C024900277468 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F76C891207C024900277468 /* Assets.xcassets */; };
 		3F76C895207C024900277468 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F76C893207C024900277468 /* LaunchScreen.storyboard */; };
 		3FD60A262080134600756DEF /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD60A252080134600756DEF /* Alarm.swift */; };
 		97BFB2E86697F7CC232E180F /* Pods_Weather_Alarm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D27B528B8A46B55F3F8DEBED /* Pods_Weather_Alarm.framework */; };
+		A28FD74D20858755008B9D3B /* Default_Alarm_Tones in Resources */ = {isa = PBXBuildFile; fileRef = A28FD74C20858755008B9D3B /* Default_Alarm_Tones */; };
+		A28FD75520858840008B9D3B /* rain in Resources */ = {isa = PBXBuildFile; fileRef = A28FD74F20858840008B9D3B /* rain */; };
+		A28FD75620858840008B9D3B /* cloudy in Resources */ = {isa = PBXBuildFile; fileRef = A28FD75020858840008B9D3B /* cloudy */; };
+		A28FD75720858840008B9D3B /* clear in Resources */ = {isa = PBXBuildFile; fileRef = A28FD75120858840008B9D3B /* clear */; };
+		A28FD75820858840008B9D3B /* snow in Resources */ = {isa = PBXBuildFile; fileRef = A28FD75220858840008B9D3B /* snow */; };
+		A28FD75920858840008B9D3B /* wind in Resources */ = {isa = PBXBuildFile; fileRef = A28FD75320858840008B9D3B /* wind */; };
+		A28FD75A20858840008B9D3B /* storm in Resources */ = {isa = PBXBuildFile; fileRef = A28FD75420858840008B9D3B /* storm */; };
 		A290D16520854237002A88AB /* MyFileFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A290D16420854237002A88AB /* MyFileFunctions.swift */; };
 /* End PBXBuildFile section */
 
@@ -21,13 +28,20 @@
 		0D8F84F5C14CCA38CEC844FA /* Pods-Weather Alarm.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weather Alarm.release.xcconfig"; path = "Pods/Target Support Files/Pods-Weather Alarm/Pods-Weather Alarm.release.xcconfig"; sourceTree = "<group>"; };
 		3F76C887207C024900277468 /* Weather Alarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Weather Alarm.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F76C88A207C024900277468 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3F76C88C207C024900277468 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3F76C88C207C024900277468 /* CountDownVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownVC.swift; sourceTree = "<group>"; };
 		3F76C88F207C024900277468 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3F76C891207C024900277468 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3F76C894207C024900277468 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3F76C896207C024900277468 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3FD60A252080134600756DEF /* Alarm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
 		A2678A42F0AC514D720E97DC /* Pods-Weather Alarm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weather Alarm.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Weather Alarm/Pods-Weather Alarm.debug.xcconfig"; sourceTree = "<group>"; };
+		A28FD74C20858755008B9D3B /* Default_Alarm_Tones */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Default_Alarm_Tones; sourceTree = "<group>"; };
+		A28FD74F20858840008B9D3B /* rain */ = {isa = PBXFileReference; lastKnownFileType = folder; path = rain; sourceTree = "<group>"; };
+		A28FD75020858840008B9D3B /* cloudy */ = {isa = PBXFileReference; lastKnownFileType = folder; path = cloudy; sourceTree = "<group>"; };
+		A28FD75120858840008B9D3B /* clear */ = {isa = PBXFileReference; lastKnownFileType = folder; path = clear; sourceTree = "<group>"; };
+		A28FD75220858840008B9D3B /* snow */ = {isa = PBXFileReference; lastKnownFileType = folder; path = snow; sourceTree = "<group>"; };
+		A28FD75320858840008B9D3B /* wind */ = {isa = PBXFileReference; lastKnownFileType = folder; path = wind; sourceTree = "<group>"; };
+		A28FD75420858840008B9D3B /* storm */ = {isa = PBXFileReference; lastKnownFileType = folder; path = storm; sourceTree = "<group>"; };
 		A290D16420854237002A88AB /* MyFileFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFileFunctions.swift; sourceTree = "<group>"; };
 		D27B528B8A46B55F3F8DEBED /* Pods_Weather_Alarm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Weather_Alarm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -73,9 +87,10 @@
 		3F76C889207C024900277468 /* Weather Alarm */ = {
 			isa = PBXGroup;
 			children = (
+				A28FD74920858675008B9D3B /* Sounds */,
 				3F76C88A207C024900277468 /* AppDelegate.swift */,
 				A290D1632085421C002A88AB /* Lib */,
-				3F76C88C207C024900277468 /* ViewController.swift */,
+				A28FD75B20859E05008B9D3B /* VC */,
 				3FD60A272080143A00756DEF /* Model */,
 				3F76C88E207C024900277468 /* Main.storyboard */,
 				3F76C891207C024900277468 /* Assets.xcassets */,
@@ -100,6 +115,36 @@
 				0D8F84F5C14CCA38CEC844FA /* Pods-Weather Alarm.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		A28FD74920858675008B9D3B /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				A28FD74E2085875F008B9D3B /* User_Alarm_Tones */,
+				A28FD74C20858755008B9D3B /* Default_Alarm_Tones */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
+		A28FD74E2085875F008B9D3B /* User_Alarm_Tones */ = {
+			isa = PBXGroup;
+			children = (
+				A28FD75120858840008B9D3B /* clear */,
+				A28FD75020858840008B9D3B /* cloudy */,
+				A28FD74F20858840008B9D3B /* rain */,
+				A28FD75220858840008B9D3B /* snow */,
+				A28FD75420858840008B9D3B /* storm */,
+				A28FD75320858840008B9D3B /* wind */,
+			);
+			path = User_Alarm_Tones;
+			sourceTree = "<group>";
+		};
+		A28FD75B20859E05008B9D3B /* VC */ = {
+			isa = PBXGroup;
+			children = (
+				3F76C88C207C024900277468 /* CountDownVC.swift */,
+			);
+			path = VC;
 			sourceTree = "<group>";
 		};
 		A290D1632085421C002A88AB /* Lib */ = {
@@ -171,6 +216,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A28FD75720858840008B9D3B /* clear in Resources */,
+				A28FD75620858840008B9D3B /* cloudy in Resources */,
+				A28FD75A20858840008B9D3B /* storm in Resources */,
+				A28FD75520858840008B9D3B /* rain in Resources */,
+				A28FD75920858840008B9D3B /* wind in Resources */,
+				A28FD75820858840008B9D3B /* snow in Resources */,
+				A28FD74D20858755008B9D3B /* Default_Alarm_Tones in Resources */,
 				3F76C895207C024900277468 /* LaunchScreen.storyboard in Resources */,
 				3F76C892207C024900277468 /* Assets.xcassets in Resources */,
 				3F76C890207C024900277468 /* Main.storyboard in Resources */,
@@ -223,7 +275,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F76C88D207C024900277468 /* ViewController.swift in Sources */,
+				3F76C88D207C024900277468 /* CountDownVC.swift in Sources */,
 				3F76C88B207C024900277468 /* AppDelegate.swift in Sources */,
 				3FD60A262080134600756DEF /* Alarm.swift in Sources */,
 				A290D16520854237002A88AB /* MyFileFunctions.swift in Sources */,

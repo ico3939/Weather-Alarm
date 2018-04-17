@@ -11,8 +11,8 @@ import CoreLocation
 import ForecastIO
 import AVFoundation
 
-class Alarm: NSObject {
-
+class Alarm: NSObject, NSCoding {
+    
     // MARK: ivars
     // -----------
     let client = DarkSkyClient(apiKey: "327180fccdc777b85e2b1fdbb6adab37") // creates a client to use with the api
@@ -22,7 +22,8 @@ class Alarm: NSObject {
     var datePicker: UIDatePicker?
     var currentTimeLeft:Int // the number of seconds remaining
     var startTime:Int // the starting time in seconds
-    var isRunning:Bool?
+    var timeOfDay:String // a
+    var isRunning:Bool
     var timer:Timer?
     var player:AVAudioPlayer?
     var weatherLabel:UILabel?
@@ -30,24 +31,29 @@ class Alarm: NSObject {
     
     // MARK: constructor
     // -----------------
-    init(startTime:Int, locationManager: CLLocationManager, datePicker:UIDatePicker, player:AVAudioPlayer, weatherLabel:UILabel, timeLabel:UILabel) {
+    init(startTime:Int, timeOfDay:String, locationManager: CLLocationManager, datePicker:UIDatePicker, player:AVAudioPlayer, weatherLabel:UILabel, timeLabel:UILabel) {
         self.startTime = startTime
         self.currentTimeLeft = startTime
+        self.timeOfDay = timeOfDay
         self.locationManager = locationManager
         self.datePicker = datePicker
         self.player = player
         self.weatherLabel = weatherLabel
         self.timeLabel = timeLabel
+        self.isRunning = false
     }
     
-    override init() {
-        self.startTime = 10
+    required init?(coder aDecoder: NSCoder) {
+        startTime = aDecoder.decodeObject(forKey: "startTime") as! Int
+        timeOfDay = aDecoder.decodeObject(forKey: "timeOfDay") as! String
         self.currentTimeLeft = startTime
         self.locationManager = nil
         self.datePicker = nil
         self.player = nil
         self.weatherLabel = nil
+        self.isRunning = false
     }
+    
     
     // MARK: helper functions
     // ----------------------
@@ -100,6 +106,12 @@ class Alarm: NSObject {
             }
         }
     }
+    
+    public func encode(with aCoder: NSCoder) {
+        aCoder.encode(startTime, forKey: "startTime")
+        aCoder.encode(timeOfDay, forKey: "timeOfDay")
+    }
+    
     
     //MARK: ObjC Functions
     // -------------------
