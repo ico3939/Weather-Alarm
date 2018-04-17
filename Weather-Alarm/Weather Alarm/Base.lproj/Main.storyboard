@@ -51,18 +51,6 @@
                                     <action selector="resetButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HcX-Bm-6gP"/>
                                 </connections>
                             </button>
-                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="fpd-14-nst">
-                                <rect key="frame" x="0.0" y="505" width="375" height="162"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="162" id="hpt-fK-qZG"/>
-                                </constraints>
-                                <date key="date" timeIntervalSinceReferenceDate="545024078.54073799">
-                                    <!--2018-04-10 03:34:38 +0000-->
-                                </date>
-                                <connections>
-                                    <action selector="dateChosen:" destination="BYZ-38-t0r" eventType="valueChanged" id="bLp-cm-uRC"/>
-                                </connections>
-                            </datePicker>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Weather:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u2T-8y-aI2">
                                 <rect key="frame" x="13" y="131" width="188" height="29"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
@@ -82,12 +70,9 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="eUg-Ga-SMp" secondAttribute="trailing" constant="116" id="70i-OT-8EN"/>
                             <constraint firstItem="u2T-8y-aI2" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="67" id="7sf-7T-fNY"/>
                             <constraint firstItem="xne-59-YCI" firstAttribute="firstBaseline" secondItem="Qxk-7G-o0Y" secondAttribute="baseline" constant="44" symbolType="layoutAnchor" id="8br-bR-ijO"/>
-                            <constraint firstItem="fpd-14-nst" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="A5c-hL-1W0"/>
                             <constraint firstItem="xne-59-YCI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="123" id="AiQ-tS-Nib"/>
-                            <constraint firstItem="fpd-14-nst" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="CU9-DI-EsP"/>
                             <constraint firstItem="Qxk-7G-o0Y" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Cd8-dV-UHn"/>
                             <constraint firstItem="eUg-Ga-SMp" firstAttribute="top" secondItem="Qxk-7G-o0Y" secondAttribute="bottom" constant="-6" id="DUr-te-bcD"/>
-                            <constraint firstItem="fpd-14-nst" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Dv0-uN-lDz"/>
                             <constraint firstItem="Z44-co-yq5" firstAttribute="leading" secondItem="u2T-8y-aI2" secondAttribute="trailing" constant="16" id="Gd7-JR-ino"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Qxk-7G-o0Y" secondAttribute="trailing" id="JNJ-cL-R23"/>
                             <constraint firstItem="Qxk-7G-o0Y" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="UHY-mo-Ts5"/>
@@ -100,7 +85,6 @@
                     <navigationItem key="navigationItem" id="T4e-6U-a1Z"/>
                     <connections>
                         <outlet property="TimeLabel" destination="Qxk-7G-o0Y" id="HKF-Xa-ZsZ"/>
-                        <outlet property="datePicker" destination="fpd-14-nst" id="WDB-Oo-BBv"/>
                         <outlet property="startButton" destination="xne-59-YCI" id="43Q-mX-dvL"/>
                         <outlet property="timeLabel" destination="Qxk-7G-o0Y" id="3hP-vI-coW"/>
                         <outlet property="weatherLabel" destination="Z44-co-yq5" id="Dej-Hf-v9s"/>
@@ -132,25 +116,55 @@
         <!--AddAlarmVC-->
         <scene sceneID="tcg-py-cMh">
             <objects>
-                <viewController id="bqf-8e-NEv" userLabel="AddAlarmVC" sceneMemberID="viewController">
+                <viewController id="bqf-8e-NEv" userLabel="AddAlarmVC" customClass="AddAlarmVC" customModule="Weather_Alarm" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iYK-xY-KQF">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="684-Xg-UQL">
+                                <rect key="frame" x="0.0" y="204" width="375" height="162"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="162" id="6Wa-sW-9dK"/>
+                                </constraints>
+                                <date key="date" timeIntervalSinceReferenceDate="545682328.50687206">
+                                    <!--2018-04-17 18:25:28 +0000-->
+                                </date>
+                            </datePicker>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pick your new alarm time:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kMb-Rm-9X0">
+                                <rect key="frame" x="61" y="149.5" width="267" height="28"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="23"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="yIg-J7-H4s" firstAttribute="trailing" secondItem="kMb-Rm-9X0" secondAttribute="trailing" constant="47" id="CEe-GZ-sdQ"/>
+                            <constraint firstItem="yIg-J7-H4s" firstAttribute="bottom" secondItem="684-Xg-UQL" secondAttribute="bottom" constant="301" id="Pnv-Cw-aKQ"/>
+                            <constraint firstAttribute="trailing" secondItem="684-Xg-UQL" secondAttribute="trailing" id="gFo-6B-Ks6"/>
+                            <constraint firstItem="kMb-Rm-9X0" firstAttribute="leading" secondItem="yIg-J7-H4s" secondAttribute="leading" constant="61" id="kKA-go-gL0"/>
+                            <constraint firstItem="684-Xg-UQL" firstAttribute="leading" secondItem="iYK-xY-KQF" secondAttribute="leading" id="nNN-EE-X2Z"/>
+                            <constraint firstItem="684-Xg-UQL" firstAttribute="firstBaseline" secondItem="kMb-Rm-9X0" secondAttribute="baseline" constant="32" id="pCk-0W-I8x"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="yIg-J7-H4s"/>
                     </view>
                     <navigationItem key="navigationItem" id="YM7-5j-ITw">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="lsE-Hb-VXy">
                             <connections>
-                                <action selector="unwindWithCancel:" destination="Nph-gG-V8v" id="iTJ-ta-gsT"/>
+                                <action selector="unwindWithCancelTapped:" destination="Nph-gG-V8v" id="vsX-CF-b9c"/>
+                                <segue destination="Nph-gG-V8v" kind="unwind" unwindAction="unwindWithCancelTappedWithSegue:" id="ZQM-9X-Ekq"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Done" id="S8h-yo-5zR">
                             <connections>
-                                <action selector="unwindWithDone:" destination="Nph-gG-V8v" id="uXw-9d-Tke"/>
+                                <action selector="unwindWithDoneTapped:" destination="Nph-gG-V8v" id="9sw-Dk-LKr"/>
+                                <segue destination="Nph-gG-V8v" kind="unwind" unwindAction="unwindWithDoneTappedWithSegue:" id="hxB-xV-wou"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="datePicker" destination="684-Xg-UQL" id="Hdv-Lp-6fl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F5b-Fy-Sy0" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Nph-gG-V8v" userLabel="Exit" sceneMemberID="exit"/>

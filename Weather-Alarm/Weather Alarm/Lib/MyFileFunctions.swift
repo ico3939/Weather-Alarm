@@ -9,18 +9,6 @@
 import Foundation
 import UIKit
 
-//func documentsDirectory() -> URL {
-//    return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first! as URL
-//}
-//
-//func cachesDirectory() -> URL {
-//    return FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first! as URL
-//}
-//
-//func tempDirectory() -> String {
-//    return NSTemporaryDirectory()
-//}
-
 
 extension FileManager {
     static var documentsDirectory: URL {

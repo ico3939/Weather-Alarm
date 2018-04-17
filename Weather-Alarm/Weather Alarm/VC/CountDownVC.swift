@@ -23,9 +23,9 @@ class CountdownVC: UIViewController {
     let secondsInDay = 86400
     let player = AVAudioPlayer()
     
-    var alarm:Alarm?
+    var currentAlarm:Alarm?
     var alarms = [Alarm?]() // an array to hold all saved alarms
-    var seconds = 0 // this variable will hold a starting value of seconds. It can be any amount above zero
+    var secondsLeft = 0 // this variable will hold a starting value of seconds. It can be any amount above zero
     var timer = Timer()
     var isTimeRunning = false // this will be used to make sure only one timer is created at a time
     
@@ -35,9 +35,7 @@ class CountdownVC: UIViewController {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var weatherLabel: UILabel!
-    
-    @IBOutlet weak var datePicker: UIDatePicker!
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -46,13 +44,21 @@ class CountdownVC: UIViewController {
         self.locationManager.requestAlwaysAuthorization() // Ask for Authorisation from the User
         self.locationManager.requestWhenInUseAuthorization() // For use in foreground
         
-        seconds = startTime // set the start time
-        self.timeLabel.text = alarm?.timeString(time: TimeInterval(seconds))
+        // load in alarms
+        let fileName = "allAlarms.archive"
+        let pathToFile = FileManager.filePathInDocumentsDirectory(fileName: fileName)
         
-        // initialize the dateTimePicker
-        datePicker.datePickerMode = UIDatePickerMode.time
+        if FileManager.default.fileExists(atPath: pathToFile.path) {
+            print("Opened \(pathToFile)")
+            alarms = NSKeyedUnarchiver.unarchiveObject(withFile: pathToFile.path) as! [Alarm]
+            print("alarms=\(alarms)")
+        }
+        else {
+            
+        }
         
-        self.alarm = Alarm(startTime: self.startTime, timeOfDay: timeOfDayString(time: TimeInterval(self.startTime)), locationManager: self.locationManager, datePicker: self.datePicker, player: self.player, weatherLabel: self.weatherLabel, timeLabel: self.timeLabel)
+        secondsLeft = startTime // set the start time
+        self.timeLabel.text = timeString(time: TimeInterval(secondsLeft))
         
         //add navBar elements
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addAlarm))
@@ -67,26 +73,67 @@ class CountdownVC: UIViewController {
         print("locations = \(locValue.latitude) \(locValue.longitude)")
     }
     
-    func timeOfDayString(time:TimeInterval) -> String {
-        var amPM:String = "am"
-        var hours = Int(time) / 3600
-        
-        if hours >= 12 {
-            amPM = "pm"
-            if hours > 12 {
-                hours -= 12
-            }
-        }
-        let minutes = Int(time) / 60 % 60
-        return "\(hours):\(minutes)\(amPM)"
+    func saveAlarms() {
+        let fileName = "allAlarms.archive"
+        let pathToFile = FileManager.filePathInDocumentsDirectory(fileName: fileName)
+        let success = NSKeyedArchiver.archiveRootObject(alarms, toFile: pathToFile.path)
+        print("Saved = \(success) to \(pathToFile)")
     }
     
+    func getWeatherInfo() {
+        // Once the user's location is known, the api will check for current weather condition at that location
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self as? CLLocationManagerDelegate
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+            print("location = \(String(describing: locationManager.location))")
+            
+            client.getForecast(latitude: (locationManager.location?.coordinate.latitude)!, longitude: (locationManager.location?.coordinate.longitude)!) { result in
+                switch result {
+                case .success(let currentForecast, _):
+                    // we got the current forecast
+                    print("\(String(describing: currentForecast.currently?.summary))")
+                    
+                    DispatchQueue.main.async(execute: {() -> Void in
+                        
+                        //TODO: Add in behavior to display weather result
+                        self.weatherLabel?.text = (currentForecast.currently?.icon).map { $0.rawValue }
+                        
+                    })
+                case .failure(let error):
+                    // there was an error
+                    print("\(error)")
+                    return
+                }
+            }
+        }
+    }
+    
+    func timeString(time:TimeInterval) -> String {
+        let hours = Int(time) / 3600
+        let minutes = Int(time) / 60 % 60
+        let seconds = Int(time) % 60
+        return String(format: "%02i:%02i:%02i", hours, minutes, seconds)
+    }
+    
+    func runTimer() {
+        isTimeRunning = true
+        timer.invalidate()
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(self.updateTimer)), userInfo: nil, repeats: true)
+    }
+    
+    func timerComplete() {
+        isTimeRunning = false
+        timer.invalidate()
+        
+        getWeatherInfo()
+    }
     
     // MARK: IBActions
     // ---------------
     @IBAction func startButtonTapped(_ sender: Any) {
         if isTimeRunning == false {
-            alarm?.runTimer()
+            runTimer()
             startButton.isEnabled = false
         }
     }
@@ -94,31 +141,47 @@ class CountdownVC: UIViewController {
     @IBAction func resetButtonTapped(_ sender: Any) {
         timer.invalidate()
         
-        seconds = startTime // here we manually enter the restarting point for seconds
+        secondsLeft = startTime // here we manually enter the restarting point for seconds
         
-        self.timeLabel.text = alarm?.timeString(time: TimeInterval(seconds))
-        alarm?.runTimer()
+        self.timeLabel.text = timeString(time: TimeInterval(secondsLeft))
+        runTimer()
     }
     
-    @IBAction func dateChosen(_ sender: Any) {
-        seconds = Int(datePicker.date.timeIntervalSinceNow)
-        if seconds < 0 {
-            seconds += secondsInDay
+    
+    @IBAction func unwindWithCancelTapped(segue: UIStoryboardSegue) {
+        print("unwindWithCancelTapped")
+    }
+    
+    @IBAction func unwindWithDoneTapped(segue: UIStoryboardSegue) {
+        print("unwindWithDoneTapped")
+        // add the alarm to the list and save it
+        if let addAlarmVC = segue.source as? AddAlarmVC {
+            if let alarm = addAlarmVC.alarm {
+                alarms.append(alarm)
+                saveAlarms()
+                
+                print(alarms)
+            }
         }
-        timeLabel.text = alarm?.timeString(time: TimeInterval(seconds))
     }
     
-    @IBAction func unwindWithCancel(_ sender: Any) {
-    }
-    
-    @IBAction func unwindWithDone(_ sender: Any) {
-    }
     
     //MARK: ObjC Functions
     // -------------------
     @objc func addAlarm() {
         performSegue(withIdentifier: myAddAlarmSegue, sender: nil)
         
+    }
+    
+    @objc func updateTimer() {
+        // if time is up
+        if secondsLeft < 1 {
+            timerComplete()
+        }
+        else {
+            secondsLeft -= 1 // this will decrement (count down) the seconds
+            self.timeLabel?.text = self.timeString(time: TimeInterval(secondsLeft)) // this will update the label
+        }
     }
     
     
