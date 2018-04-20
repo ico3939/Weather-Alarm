@@ -42,4 +42,12 @@ class Alarm: NSObject, NSCoding {
         aCoder.encode(timeOfDay, forKey: "timeOfDay")
     }
     
+    override func isEqual(_ object: Any?) -> Bool {
+        if let alarm = object as? Alarm {
+            if self.startTime == alarm.startTime {
+                return true
+            }
+        }
+        return false
+    }
 }

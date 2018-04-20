@@ -82,15 +82,23 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="T4e-6U-a1Z"/>
+                    <navigationItem key="navigationItem" id="T4e-6U-a1Z">
+                        <barButtonItem key="rightBarButtonItem" title="Set Alarm" id="9wm-kd-zht">
+                            <connections>
+                                <action selector="setAlarmButtonClicked:" destination="BYZ-38-t0r" id="Nqq-vy-F9d"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="TimeLabel" destination="Qxk-7G-o0Y" id="HKF-Xa-ZsZ"/>
+                        <outlet property="setAlarmButton" destination="9wm-kd-zht" id="KKV-Nq-qfW"/>
                         <outlet property="startButton" destination="xne-59-YCI" id="43Q-mX-dvL"/>
                         <outlet property="timeLabel" destination="Qxk-7G-o0Y" id="3hP-vI-coW"/>
                         <outlet property="weatherLabel" destination="Z44-co-yq5" id="Dej-Hf-v9s"/>
                         <segue destination="kZk-1y-VOe" kind="popoverPresentation" identifier="addAlarmSegue" popoverAnchorView="8bC-Xf-vdC" id="BXr-Yc-d66">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                         </segue>
+                        <segue destination="CNp-AF-T9j" kind="presentation" identifier="alarmListSegue" modalTransitionStyle="crossDissolve" id="wKB-EP-H5j"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -112,6 +120,58 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c4d-WZ-zHy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="462" y="333"/>
+        </scene>
+        <!--Alarms-->
+        <scene sceneID="aRf-7b-9sE">
+            <objects>
+                <tableViewController id="FYu-Gf-C9t" customClass="AlarmListVC" customModule="Weather_Alarm" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="wca-zQ-EqO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="alarmCell" id="uUv-zg-sd7">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uUv-zg-sd7" id="jbG-dy-HPj">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="FYu-Gf-C9t" id="ntw-l3-dEA"/>
+                            <outlet property="delegate" destination="FYu-Gf-C9t" id="oIi-Fd-3dh"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Alarms" id="8Uw-yV-oxF">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="2ub-cu-pfE">
+                            <connections>
+                                <segue destination="99P-u6-cxV" kind="unwind" unwindAction="unwindWithCancelTappedWithSegue:" id="xYz-WU-OhO"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XSJ-ZW-67J" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="99P-u6-cxV" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="2439" y="-458"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="hOJ-VC-AhN">
+            <objects>
+                <navigationController id="CNp-AF-T9j" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="tOc-xe-ZtT">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="FYu-Gf-C9t" kind="relationship" relationship="rootViewController" id="lYe-k7-e38"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="D3q-gv-OYr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1486" y="-458"/>
         </scene>
         <!--AddAlarmVC-->
         <scene sceneID="tcg-py-cMh">

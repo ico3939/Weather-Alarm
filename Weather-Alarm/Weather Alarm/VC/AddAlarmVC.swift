@@ -14,6 +14,7 @@ class AddAlarmVC: UIViewController {
     // -----
     let secondsInDay = 86400
     var alarm:Alarm?
+    var isScrolling = false
     
     // MARK: Outlets
     // -------------
@@ -53,4 +54,5 @@ class AddAlarmVC: UIViewController {
         let minutes = Int(time) / 60 % 60
         return "\(hours):\(minutes)\(amPM)"
     }
+    
 }

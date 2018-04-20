@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F5EC91520894E7C00617515 /* AlarmListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5EC91420894E7C00617515 /* AlarmListVC.swift */; };
 		3F76C88B207C024900277468 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F76C88A207C024900277468 /* AppDelegate.swift */; };
 		3F76C88D207C024900277468 /* CountDownVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F76C88C207C024900277468 /* CountDownVC.swift */; };
 		3F76C890207C024900277468 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F76C88E207C024900277468 /* Main.storyboard */; };
@@ -21,6 +22,7 @@
 
 /* Begin PBXFileReference section */
 		0D8F84F5C14CCA38CEC844FA /* Pods-Weather Alarm.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weather Alarm.release.xcconfig"; path = "Pods/Target Support Files/Pods-Weather Alarm/Pods-Weather Alarm.release.xcconfig"; sourceTree = "<group>"; };
+		3F5EC91420894E7C00617515 /* AlarmListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmListVC.swift; sourceTree = "<group>"; };
 		3F76C887207C024900277468 /* Weather Alarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Weather Alarm.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F76C88A207C024900277468 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F76C88C207C024900277468 /* CountDownVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownVC.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 			children = (
 				3F76C88C207C024900277468 /* CountDownVC.swift */,
 				3FE1B65220866E8B0089B0EC /* AddAlarmVC.swift */,
+				3F5EC91420894E7C00617515 /* AlarmListVC.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -246,6 +249,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F5EC91520894E7C00617515 /* AlarmListVC.swift in Sources */,
 				3F76C88D207C024900277468 /* CountDownVC.swift in Sources */,
 				3FE1B65320866E8B0089B0EC /* AddAlarmVC.swift in Sources */,
 				3F76C88B207C024900277468 /* AppDelegate.swift in Sources */,

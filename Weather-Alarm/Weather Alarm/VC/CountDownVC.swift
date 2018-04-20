@@ -16,7 +16,8 @@ class CountdownVC: UIViewController {
     
     // MARK: ivars
     // -----------
-    let myAddAlarmSegue = "addAlarmSegue"
+    let myAddAlarmSegue = "addAlarmSegue" // segue to the add alarm screen
+    let myAlarmListSegue = "alarmListSegue" // segue to the alarm pick screen
     let client = DarkSkyClient(apiKey: "327180fccdc777b85e2b1fdbb6adab37") // creates a client to use with the api
     let locationManager = CLLocationManager()
     let startTime = 10
@@ -24,7 +25,7 @@ class CountdownVC: UIViewController {
     let player = AVAudioPlayer()
     
     var currentAlarm:Alarm?
-    var alarms = [Alarm?]() // an array to hold all saved alarms
+    var alarms = [Alarm]() // an array to hold all saved alarms
     var secondsLeft = 0 // this variable will hold a starting value of seconds. It can be any amount above zero
     var timer = Timer()
     var isTimeRunning = false // this will be used to make sure only one timer is created at a time
@@ -35,7 +36,8 @@ class CountdownVC: UIViewController {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var weatherLabel: UILabel!
-        
+    @IBOutlet weak var setAlarmButton: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -52,9 +54,6 @@ class CountdownVC: UIViewController {
             print("Opened \(pathToFile)")
             alarms = NSKeyedUnarchiver.unarchiveObject(withFile: pathToFile.path) as! [Alarm]
             print("alarms=\(alarms)")
-        }
-        else {
-            
         }
         
         secondsLeft = startTime // set the start time
@@ -157,12 +156,22 @@ class CountdownVC: UIViewController {
         // add the alarm to the list and save it
         if let addAlarmVC = segue.source as? AddAlarmVC {
             if let alarm = addAlarmVC.alarm {
-                alarms.append(alarm)
-                saveAlarms()
-                
-                print(alarms)
+                if !alarms.contains(alarm) {
+                    
+                    alarms.append(alarm)
+                    saveAlarms()
+                    
+                    print("adding alarm")
+                    print(timeString(time: TimeInterval(alarm.startTime)))
+                }
+                else {
+                    print("Ignoring alarm of time \(alarm.startTime)")
+                }
             }
         }
+    }
+    @IBAction func setAlarmButtonClicked(_ sender: Any) {
+        performSegue(withIdentifier: myAlarmListSegue, sender: nil)
     }
     
     
