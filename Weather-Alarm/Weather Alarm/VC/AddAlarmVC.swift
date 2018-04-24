@@ -31,19 +31,31 @@ class AddAlarmVC: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        var startTime = Int(datePicker.date.timeIntervalSinceNow)
-        if startTime < 0 {
-            startTime += secondsInDay
+        let startTime = datePicker.date
+        print(startTime)
+        let timeOfDay = timeOfDayString(time: startTime)
+        
+        let curentDate = Date()
+        let cal = Calendar(identifier: .gregorian)
+        let midnight = cal.startOfDay(for: curentDate)
+        
+        var startTimeSeconds = Int(startTime.timeIntervalSince(midnight))
+        
+        if startTimeSeconds % 60 != 0 {
+            let remainder = startTimeSeconds % 60
+            startTimeSeconds -= remainder
         }
-        let timeOfDay = timeOfDayString(time: TimeInterval(startTime))
-        alarm = Alarm(startTime: startTime, timeOfDay: timeOfDay)
+        
+        print(startTimeSeconds)
+        alarm = Alarm(startTime: startTimeSeconds, timeOfDay: timeOfDay)
     }
     
     // MARK: helper functions
     // ----------------------
-    func timeOfDayString(time:TimeInterval) -> String {
+    func timeOfDayString(time:Date) -> String {
         var amPM:String = "am"
-        var hours = Int(time) / 3600
+        let calender = Calendar.current
+        var hours = calender.component(.hour, from: time)
         
         if hours >= 12 {
             amPM = "pm"
@@ -51,8 +63,16 @@ class AddAlarmVC: UIViewController {
                 hours -= 12
             }
         }
-        let minutes = Int(time) / 60 % 60
-        return "\(hours):\(minutes)\(amPM)"
+        if hours == 0 {
+            hours = 12
+        }
+        
+        let minutes = calender.component(.minute, from: time)
+        var minuteString = String(minutes)
+        if minutes < 10 {
+            minuteString = "0\(minuteString)"
+        }
+        return "\(hours):\(minuteString)\(amPM)"
     }
     
 }
