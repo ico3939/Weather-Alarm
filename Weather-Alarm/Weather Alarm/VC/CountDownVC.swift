@@ -149,6 +149,7 @@ class CountdownVC: UIViewController {
     
     @IBAction func unwindWithCancelTapped(segue: UIStoryboardSegue) {
         print("unwindWithCancelTapped")
+        saveAlarms()
     }
     
     @IBAction func unwindWithDoneTapped(segue: UIStoryboardSegue) {

@@ -8,11 +8,15 @@
 
 import UIKit
 
-class AlarmListVC: UITableViewController {
+class AlarmListVC: UIViewController {
+    
+    // MARK: Outlets
+    // -------------
+    @IBOutlet var alarmsTableView: UITableView!
     
     //MARK: ivars
     // ----------
-    let alarmCell = "alarmCell"
+    let alarmCell = "AlarmCell"
     var alarms = [Alarm]()
     
     override func viewDidLoad() {
@@ -29,37 +33,55 @@ class AlarmListVC: UITableViewController {
             print("alarms=\(alarms)")
         }
         
-    }
-    
-    //MARK: override functions
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return alarms.count
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: alarmCell, for: indexPath)
-        let cellHeight: CGFloat = 44.0
-        let alarm = alarms[indexPath.row]
-        cell.textLabel?.text = alarm.timeOfDay
+        // set up the cells
+        alarmsTableView.dataSource = self
+        alarmsTableView.rowHeight = UITableViewAutomaticDimension
         
-        // create button to activate alarm
-        let button: UISwitch = UISwitch()
-        button.isSelected = alarm.isRunning
-        button.center = CGPoint(x: view.bounds.width - button.frame.width, y: cellHeight / 2.0)
-        button.addTarget(self, action: #selector(buttonClicked), for: UIControlEvents.touchUpInside)
-        cell.addSubview(button)
+        let nibName = UINib(nibName: alarmCell, bundle:nil)
+        alarmsTableView.register(nibName, forCellReuseIdentifier: alarmCell)
         
-        return cell
     }
     
-    // MARK: objC functions
-    // --------------------
-    @objc func buttonClicked(sender: Any) {
-        //alarm.isRunning = !alarm.isRunning
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let fileName = "allAlarms.archive"
+        let pathToFile = FileManager.filePathInDocumentsDirectory(fileName: fileName)
+        NSKeyedArchiver.archiveRootObject(self.alarms, toFile: pathToFile.path)
     }
     
 }
+
+// MARK: Extensions
+// ----------------
+extension AlarmListVC: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return alarms.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: alarmCell, for: indexPath) as! AlarmCell
+        let alarm = alarms[indexPath.row]
+        cell.alarm = alarm
+        cell.alarmLabel.text = alarm.timeOfDay
+        cell.alarmButton.isOn = alarm.isRunning
+        cell.delegate = self
+
+        return cell
+    }
+    
+    
+}
+
+extension AlarmListVC: AlarmCellDelegate {
+    
+    func alarmButtonClicked(alarm: Alarm) {
+        
+        print(alarm.isRunning)
+        alarm.switchOnOff()
+    }
+}
+

@@ -147,10 +147,13 @@
                     <navigationItem key="navigationItem" title="Alarms" id="8Uw-yV-oxF">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="2ub-cu-pfE">
                             <connections>
-                                <segue destination="99P-u6-cxV" kind="unwind" unwindAction="unwindWithCancelTappedWithSegue:" id="xYz-WU-OhO"/>
+                                <segue destination="99P-u6-cxV" kind="unwind" identifier="" unwindAction="unwindWithCancelTappedWithSegue:" id="xYz-WU-OhO"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="alarmsTableView" destination="wca-zQ-EqO" id="bfL-dK-MBH"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XSJ-ZW-67J" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="99P-u6-cxV" userLabel="Exit" sceneMemberID="exit"/>

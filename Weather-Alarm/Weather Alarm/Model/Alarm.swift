@@ -23,24 +23,30 @@ class Alarm: NSObject, NSCoding {
         self.startTime = startTime
         self.currentTimeLeft = startTime
         self.timeOfDay = timeOfDay
-        self.isRunning = false
+        self.isRunning = true
     }
     
     required init?(coder aDecoder: NSCoder) {
         startTime = aDecoder.decodeInteger(forKey: "startTime")
         timeOfDay = aDecoder.decodeObject(forKey: "timeOfDay") as! String
         self.currentTimeLeft = startTime
-        self.isRunning = false
+        isRunning = aDecoder.decodeBool(forKey: "isRunning")
     }
     
     
     // MARK: helper functions
     // ----------------------
+    func switchOnOff() {
+        self.isRunning = !self.isRunning
+        
+    }
    
     public func encode(with aCoder: NSCoder) {
         aCoder.encode(startTime, forKey: "startTime")
         aCoder.encode(timeOfDay, forKey: "timeOfDay")
+        aCoder.encode(isRunning, forKey: "isRunning")
     }
+    
     
     override func isEqual(_ object: Any?) -> Bool {
         if let alarm = object as? Alarm {
