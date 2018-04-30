@@ -17,6 +17,7 @@ class AlarmListVC: UIViewController {
     //MARK: ivars
     // ----------
     let alarmCell = "AlarmCell"
+    let myAddAlarmSegue = "addAlarmSegue" // segue to the add alarm screen
     var alarms = [Alarm]()
     
     override func viewDidLoad() {
@@ -40,12 +41,22 @@ class AlarmListVC: UIViewController {
         let nibName = UINib(nibName: alarmCell, bundle:nil)
         alarmsTableView.register(nibName, forCellReuseIdentifier: alarmCell)
         
+        //add navBar elements
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addAlarm))
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let fileName = "allAlarms.archive"
         let pathToFile = FileManager.filePathInDocumentsDirectory(fileName: fileName)
         NSKeyedArchiver.archiveRootObject(self.alarms, toFile: pathToFile.path)
+    }
+    
+    //MARK: ObjC Functions
+    // -------------------
+    @objc func addAlarm() {
+        performSegue(withIdentifier: myAddAlarmSegue, sender: nil)
+        
     }
     
 }

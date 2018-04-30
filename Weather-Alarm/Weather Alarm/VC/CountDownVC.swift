@@ -150,6 +150,7 @@ class CountdownVC: UIViewController {
     @IBAction func unwindWithCancelTapped(segue: UIStoryboardSegue) {
         print("unwindWithCancelTapped")
         saveAlarms()
+        
     }
     
     @IBAction func unwindWithDoneTapped(segue: UIStoryboardSegue) {
@@ -171,6 +172,7 @@ class CountdownVC: UIViewController {
             }
         }
     }
+    
     @IBAction func setAlarmButtonClicked(_ sender: Any) {
         performSegue(withIdentifier: myAlarmListSegue, sender: nil)
     }
@@ -195,5 +197,16 @@ class CountdownVC: UIViewController {
     }
     
     
+}
+
+extension UIViewController {
+    func performSegueToReturnBack() {
+        if let nav = self.navigationController {
+            nav.popViewController(animated: true)
+        }
+        else {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
 }
 

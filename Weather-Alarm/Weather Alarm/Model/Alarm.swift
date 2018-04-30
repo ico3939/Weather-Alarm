@@ -23,7 +23,7 @@ class Alarm: NSObject, NSCoding {
         self.startTime = startTime
         self.currentTimeLeft = startTime
         self.timeOfDay = timeOfDay
-        self.isRunning = true
+        self.isRunning = false
     }
     
     required init?(coder aDecoder: NSCoder) {

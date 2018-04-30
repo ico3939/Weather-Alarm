@@ -153,6 +153,9 @@
                     </navigationItem>
                     <connections>
                         <outlet property="alarmsTableView" destination="wca-zQ-EqO" id="bfL-dK-MBH"/>
+                        <segue destination="gcw-co-jtG" kind="popoverPresentation" identifier="addAlarmSegue" popoverAnchorView="wca-zQ-EqO" id="xwt-M8-rRa">
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                        </segue>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XSJ-ZW-67J" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -214,14 +217,12 @@
                     <navigationItem key="navigationItem" id="YM7-5j-ITw">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="lsE-Hb-VXy">
                             <connections>
-                                <action selector="unwindWithCancelTapped:" destination="Nph-gG-V8v" id="vsX-CF-b9c"/>
-                                <segue destination="Nph-gG-V8v" kind="unwind" unwindAction="unwindWithCancelTappedWithSegue:" id="ZQM-9X-Ekq"/>
+                                <segue destination="Nph-gG-V8v" kind="unwind" unwindAction="unwindWithCancelTappedWithSegue:" id="zcL-tX-C8W"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Done" id="S8h-yo-5zR">
                             <connections>
-                                <action selector="unwindWithDoneTapped:" destination="Nph-gG-V8v" id="9sw-Dk-LKr"/>
-                                <segue destination="Nph-gG-V8v" kind="unwind" unwindAction="unwindWithDoneTappedWithSegue:" id="hxB-xV-wou"/>
+                                <segue destination="Nph-gG-V8v" kind="unwind" unwindAction="unwindWithDoneTappedWithSegue:" id="wjC-6W-iVm"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -250,5 +251,24 @@
             </objects>
             <point key="canvasLocation" x="-604" y="-458"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="FZK-KR-0Q2">
+            <objects>
+                <navigationController id="gcw-co-jtG" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="QgD-jz-IiH">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="bqf-8e-NEv" kind="relationship" relationship="rootViewController" id="tXq-ED-nxB"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="D9I-bE-mYd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2438" y="345"/>
+        </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="tXq-ED-nxB"/>
+    </inferredMetricsTieBreakers>
 </document>
