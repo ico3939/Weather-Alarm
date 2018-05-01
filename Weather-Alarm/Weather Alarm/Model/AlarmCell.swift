@@ -20,6 +20,7 @@ class AlarmCell: UITableViewCell {
     var delegate: AlarmCellDelegate?
     var alarm: Alarm?
     
+
     // MARK: IBOutlets
     // ---------------
     @IBOutlet weak var alarmLabel: UILabel!

@@ -19,10 +19,15 @@ class AlarmListVC: UIViewController {
     let alarmCell = "AlarmCell"
     let myAddAlarmSegue = "addAlarmSegue" // segue to the add alarm screen
     var alarms = [Alarm]()
+    var selectedRow = IndexPath()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Alarms"
+        
+        // add gesture recognizer
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPress))
+        self.view.addGestureRecognizer(longPressRecognizer)
         
         // load in alarms
         let fileName = "allAlarms.archive"
@@ -45,7 +50,10 @@ class AlarmListVC: UIViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addAlarm))
         
     }
+
     
+    // MARK: Overrides
+    // ---------------
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let fileName = "allAlarms.archive"
         let pathToFile = FileManager.filePathInDocumentsDirectory(fileName: fileName)
@@ -57,6 +65,46 @@ class AlarmListVC: UIViewController {
     @objc func addAlarm() {
         performSegue(withIdentifier: myAddAlarmSegue, sender: nil)
         
+    }
+    
+    @objc func longPress(longPressGestureRecognizer: UILongPressGestureRecognizer) {
+        
+        if longPressGestureRecognizer.state == UIGestureRecognizerState.began {
+            let touchPoint = longPressGestureRecognizer.location(in: longPressGestureRecognizer.view)
+            if alarmsTableView.indexPathForRow(at: touchPoint) != nil {
+                
+                
+                // configure the menu item to display
+                self.selectedRow = (self.alarmsTableView.indexPathForRow(at: touchPoint))!
+
+                let menuItemTitle = NSLocalizedString("Delete", comment: "Delete the selected alarm")
+                let action = #selector(deleteAlarm)
+                let deleteMenuItem = UIMenuItem(title: menuItemTitle, action: action)
+                
+                // configure the shared menu controller
+                let menuController = UIMenuController.shared
+                menuController.menuItems = [deleteMenuItem]
+                
+                // set the location of the menu in the view
+                
+                let menuLocation = CGRect(x: touchPoint.x, y: touchPoint.y, width: 0, height: 0)
+                menuController.setTargetRect(menuLocation, in: self.view)
+                
+                // show the menu
+                menuController.setMenuVisible(true, animated: true)
+            }
+        }
+    }
+    
+    @objc func deleteAlarm() {
+        // delete the row from the data source
+        alarms.remove(at: selectedRow.row)
+        
+        // update the tableView
+        self.alarmsTableView.deleteRows(at: [selectedRow], with: .fade)
+        let fileName = "allAlarms.archive"
+        let pathToFile = FileManager.filePathInDocumentsDirectory(fileName: fileName)
+        NSKeyedArchiver.archiveRootObject(self.alarms, toFile: pathToFile.path)
     }
     
 }
@@ -80,10 +128,10 @@ extension AlarmListVC: UITableViewDataSource {
         cell.alarmLabel.text = alarm.timeOfDay
         cell.alarmButton.isOn = alarm.isRunning
         cell.delegate = self
+        
 
         return cell
     }
-    
     
 }
 

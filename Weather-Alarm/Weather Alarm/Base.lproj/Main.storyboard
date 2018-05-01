@@ -137,6 +137,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <gestureRecognizers/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -153,9 +154,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="alarmsTableView" destination="wca-zQ-EqO" id="bfL-dK-MBH"/>
-                        <segue destination="gcw-co-jtG" kind="popoverPresentation" identifier="addAlarmSegue" popoverAnchorView="wca-zQ-EqO" id="xwt-M8-rRa">
-                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                        </segue>
+                        <segue destination="gcw-co-jtG" kind="show" identifier="addAlarmSegue" id="xwt-M8-rRa"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XSJ-ZW-67J" userLabel="First Responder" sceneMemberID="firstResponder"/>

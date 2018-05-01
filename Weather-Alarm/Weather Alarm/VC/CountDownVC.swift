@@ -161,6 +161,7 @@ class CountdownVC: UIViewController {
                 if !alarms.contains(alarm) {
                     
                     alarms.append(alarm)
+                    alarms.sort{$0.startTime < $1.startTime}
                     saveAlarms()
                     
                     print("adding alarm")
