@@ -14,7 +14,6 @@ class AddAlarmVC: UIViewController {
     // -----
     let secondsInDay = 86400
     var alarm:Alarm?
-    var isScrolling = false
     
     // MARK: Outlets
     // -------------
@@ -35,9 +34,10 @@ class AddAlarmVC: UIViewController {
         print(startTime)
         let timeOfDay = timeOfDayString(time: startTime)
         
-        let curentDate = Date()
+        let currentDate = Date()
         let cal = Calendar(identifier: .gregorian)
-        let midnight = cal.startOfDay(for: curentDate)
+        let midnight = cal.startOfDay(for: currentDate)
+
         
         var startTimeSeconds = Int(startTime.timeIntervalSince(midnight))
         
@@ -47,6 +47,7 @@ class AddAlarmVC: UIViewController {
         }
         
         print(startTimeSeconds)
+        
         alarm = Alarm(startTime: startTimeSeconds, timeOfDay: timeOfDay)
     }
     
@@ -74,5 +75,6 @@ class AddAlarmVC: UIViewController {
         }
         return "\(hours):\(minuteString)\(amPM)"
     }
+    
     
 }

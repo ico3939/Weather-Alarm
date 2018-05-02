@@ -12,7 +12,7 @@ class Alarm: NSObject, NSCoding {
     
     // MARK: ivars
     // -----------
-    let currentTimeLeft:Int // the number of seconds remaining
+    var currentTimeLeft:Int = 0// the number of seconds remaining
     let startTime:Int // the starting time in seconds
     let timeOfDay:String // a readable string describing the startTime in terms of the time of day
     var isRunning:Bool
@@ -21,9 +21,24 @@ class Alarm: NSObject, NSCoding {
     // -----------------
     init(startTime:Int, timeOfDay:String) {
         self.startTime = startTime
-        self.currentTimeLeft = startTime
         self.timeOfDay = timeOfDay
         self.isRunning = false
+        
+        // set up the initial seconds remaining
+        let currentDate = Date()
+        let cal = Calendar(identifier: .gregorian)
+        let currentHours = cal.component(.hour, from: currentDate)
+        let currentMinutes = cal.component(.minute, from: currentDate)
+        var currentSeconds = cal.component(.second, from: currentDate)
+        
+        currentSeconds += (currentMinutes * 60) + (currentHours * 3600)
+        
+        if currentSeconds < startTime {
+            self.currentTimeLeft = startTime - currentSeconds
+        }
+        else {
+            self.currentTimeLeft = 86400 - (currentSeconds - startTime)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -31,6 +46,23 @@ class Alarm: NSObject, NSCoding {
         timeOfDay = aDecoder.decodeObject(forKey: "timeOfDay") as! String
         self.currentTimeLeft = startTime
         isRunning = aDecoder.decodeBool(forKey: "isRunning")
+        
+        // set up the initial seconds remaining
+        let currentDate = Date()
+        let cal = Calendar(identifier: .gregorian)
+        let currentHours = cal.component(.hour, from: currentDate)
+        let currentMinutes = cal.component(.minute, from: currentDate)
+        var currentSeconds = cal.component(.second, from: currentDate)
+        
+        currentSeconds += (currentMinutes * 60) + (currentHours * 3600)
+        
+        if currentSeconds < startTime {
+            self.currentTimeLeft = startTime - currentSeconds
+        }
+        else {
+            self.currentTimeLeft = 86400 - (currentSeconds - startTime)
+        }
+        
     }
     
     
@@ -39,6 +71,39 @@ class Alarm: NSObject, NSCoding {
     func switchOnOff() {
         self.isRunning = !self.isRunning
         
+    }
+    
+    func reset() {
+        self.currentTimeLeft = self.startTime
+    }
+    
+    func countdown() {
+    }
+    
+    func calcStartSecondsLeft(startTime: Int){
+        
+        let currentDate = Date()
+        let cal = Calendar(identifier: .gregorian)
+        let currentHours = cal.component(.hour, from: currentDate)
+        let currentMinutes = cal.component(.minute, from: currentDate)
+        var currentSeconds = cal.component(.second, from: currentDate)
+        
+        currentSeconds += (currentMinutes * 60) + (currentHours * 3600)
+        
+        if currentSeconds < startTime {
+            self.currentTimeLeft = startTime - currentSeconds
+        }
+        else {
+            self.currentTimeLeft = 86400 - (currentSeconds - startTime)
+        }
+    }
+
+    
+    func timeString(time:TimeInterval) -> String {
+        let hours = Int(time) / 3600
+        let minutes = Int(time) / 60 % 60
+        let seconds = Int(time) % 60
+        return String(format: "%02i:%02i:%02i", hours, minutes, seconds)
     }
    
     public func encode(with aCoder: NSCoder) {

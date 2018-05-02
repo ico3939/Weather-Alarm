@@ -26,6 +26,7 @@ class CountdownVC: UIViewController {
     
     var currentAlarm:Alarm?
     var alarms = [Alarm]() // an array to hold all saved alarms
+    var runningAlarms = [Alarm]()
     var secondsLeft = 0 // this variable will hold a starting value of seconds. It can be any amount above zero
     var timer = Timer()
     var isTimeRunning = false // this will be used to make sure only one timer is created at a time
@@ -56,7 +57,31 @@ class CountdownVC: UIViewController {
             print("alarms=\(alarms)")
         }
         
-        secondsLeft = startTime // set the start time
+        // determine which of the saved alarms are currently running
+        if !alarms.isEmpty{
+            
+            for alarm in alarms {
+                if alarm.isRunning {
+                    runningAlarms.append(alarm)
+                }
+            }
+            
+            if !runningAlarms.isEmpty {
+                runningAlarms.sort{$0.currentTimeLeft < $1.currentTimeLeft}
+                currentAlarm = runningAlarms[0]
+                
+                secondsLeft = (currentAlarm?.currentTimeLeft)! // set the start time
+                runTimer()
+            }
+            else {
+                secondsLeft = 0
+            }
+            
+        }
+        else {
+            secondsLeft = 0
+        }
+        
         self.timeLabel.text = timeString(time: TimeInterval(secondsLeft))
         
         //add navBar elements
@@ -178,6 +203,21 @@ class CountdownVC: UIViewController {
         performSegue(withIdentifier: myAlarmListSegue, sender: nil)
     }
     
+    //MARK: Overrides
+    // --------------
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationNavigationController = segue.destination as! UINavigationController
+        
+        // passes the alarms from the base view to the list
+        if let targetController = destinationNavigationController.topViewController as? AlarmListVC {
+            targetController.alarms = self.alarms
+            targetController.timer = self.timer
+            targetController.timeLabel = self.timeLabel
+            targetController.currentAlarm = self.currentAlarm
+            targetController.runningAlarms = self.runningAlarms
+            targetController.isTimeRunning = self.isTimeRunning
+        }
+    }
     
     //MARK: ObjC Functions
     // -------------------
@@ -188,12 +228,13 @@ class CountdownVC: UIViewController {
     
     @objc func updateTimer() {
         // if time is up
-        if secondsLeft < 1 {
+        if (self.currentAlarm?.currentTimeLeft)! < 1 {
+            
             timerComplete()
         }
         else {
-            secondsLeft -= 1 // this will decrement (count down) the seconds
-            self.timeLabel?.text = self.timeString(time: TimeInterval(secondsLeft)) // this will update the label
+            self.currentAlarm?.currentTimeLeft -= 1 // this will decrement (count down) the seconds
+            self.timeLabel?.text = self.timeString(time: TimeInterval((self.currentAlarm?.currentTimeLeft)!)) // this will update the label
         }
     }
     

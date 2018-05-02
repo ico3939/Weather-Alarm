@@ -13,13 +13,19 @@ class AlarmListVC: UIViewController {
     // MARK: Outlets
     // -------------
     @IBOutlet var alarmsTableView: UITableView!
+    var timeLabel: UILabel!
     
     //MARK: ivars
     // ----------
     let alarmCell = "AlarmCell"
     let myAddAlarmSegue = "addAlarmSegue" // segue to the add alarm screen
-    var alarms = [Alarm]()
+    var alarms:[Alarm]!
+    var runningAlarms: [Alarm]!
+    var currentAlarm: Alarm!
+    var timer:Timer?
     var selectedRow = IndexPath()
+    var isTimeRunning: Bool! // this will be used to make sure only one timer is created at a time
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,16 +34,7 @@ class AlarmListVC: UIViewController {
         // add gesture recognizer
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPress))
         self.view.addGestureRecognizer(longPressRecognizer)
-        
-        // load in alarms
-        let fileName = "allAlarms.archive"
-        let pathToFile = FileManager.filePathInDocumentsDirectory(fileName: fileName)
-        
-        if FileManager.default.fileExists(atPath: pathToFile.path) {
-            print("Opened \(pathToFile)")
-            alarms = NSKeyedUnarchiver.unarchiveObject(withFile: pathToFile.path) as! [Alarm]
-            print("alarms=\(alarms)")
-        }
+
         
         // set up the cells
         alarmsTableView.dataSource = self
@@ -50,6 +47,22 @@ class AlarmListVC: UIViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addAlarm))
         
     }
+    
+    //MARK: Helper functions
+    // ---------------------
+    func runTimer() {
+        isTimeRunning = true
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(self.updateTimer)), userInfo: nil, repeats: true)
+    }
+    
+    func timerComplete() {
+        isTimeRunning = false
+        timer?.invalidate()
+        
+        // TODO: Add behavior for when the timer is finished running
+        //getWeatherInfo()
+    }
 
     
     // MARK: Overrides
@@ -58,6 +71,16 @@ class AlarmListVC: UIViewController {
         let fileName = "allAlarms.archive"
         let pathToFile = FileManager.filePathInDocumentsDirectory(fileName: fileName)
         NSKeyedArchiver.archiveRootObject(self.alarms, toFile: pathToFile.path)
+        
+        //let destinationNavigationController = segue.destination as! UINavigationController
+        
+        // passes the alarms from the base view to the list
+        if let targetController = segue.destination as? CountdownVC {
+            targetController.timer = self.timer!
+            targetController.runningAlarms = self.runningAlarms
+            targetController.currentAlarm = self.currentAlarm
+            targetController.isTimeRunning = self.isTimeRunning
+        }
     }
     
     //MARK: ObjC Functions
@@ -86,7 +109,6 @@ class AlarmListVC: UIViewController {
                 menuController.menuItems = [deleteMenuItem]
                 
                 // set the location of the menu in the view
-                
                 let menuLocation = CGRect(x: touchPoint.x, y: touchPoint.y, width: 0, height: 0)
                 menuController.setTargetRect(menuLocation, in: self.view)
                 
@@ -105,6 +127,18 @@ class AlarmListVC: UIViewController {
         let fileName = "allAlarms.archive"
         let pathToFile = FileManager.filePathInDocumentsDirectory(fileName: fileName)
         NSKeyedArchiver.archiveRootObject(self.alarms, toFile: pathToFile.path)
+    }
+    
+    @objc func updateTimer() {
+        // if time is up
+        if (self.currentAlarm?.currentTimeLeft)! < 1 {
+            
+            timerComplete()
+        }
+        else {
+            self.currentAlarm?.currentTimeLeft -= 1 // this will decrement (count down) the seconds
+            self.timeLabel?.text = self.currentAlarm?.timeString(time: TimeInterval((self.currentAlarm?.currentTimeLeft)!)) // this will update the label
+        }
     }
     
 }
@@ -139,8 +173,41 @@ extension AlarmListVC: AlarmCellDelegate {
     
     func alarmButtonClicked(alarm: Alarm) {
         
-        print(alarm.isRunning)
         alarm.switchOnOff()
+        print(runningAlarms)
+        // start running the timer
+        if alarm.isRunning {
+            
+            // makes the selected alarm the current one
+            if currentAlarm == nil || alarm.currentTimeLeft < (currentAlarm?.currentTimeLeft)!  {
+                currentAlarm = alarm
+                runningAlarms.insert(alarm, at: 0)
+            }
+            else {
+                // add the alarm to the stack of running timers
+                runningAlarms.append(alarm)
+                runningAlarms.sort{$0.currentTimeLeft < $1.currentTimeLeft}
+                
+            }
+            
+            if isTimeRunning == false {
+                
+                // start the timer
+                runTimer()
+            }
+        }
+        else {
+            
+            // remove the alarm from the ones currently running
+            runningAlarms = runningAlarms.filter({$0 !== alarm})
+            
+            // stop the timer if there are no more alarms that are on
+            if runningAlarms.isEmpty {
+                timer?.invalidate()
+                isTimeRunning = false
+            }
+        }
+        
     }
 }
 

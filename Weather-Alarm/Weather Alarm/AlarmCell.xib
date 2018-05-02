@@ -19,23 +19,23 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TSg-Lo-pD3">
-                        <rect key="frame" x="257" y="6" width="49" height="31"/>
-                        <connections>
-                            <action selector="onOffButtonPressed:" destination="KGk-i7-Jjw" eventType="valueChanged" id="Tig-CU-Bqk"/>
-                        </connections>
-                    </switch>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alarm Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rEK-IL-3wu">
-                        <rect key="frame" x="16" y="11" width="91" height="21"/>
+                        <rect key="frame" x="16" y="12" width="91" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TSg-Lo-pD3">
+                        <rect key="frame" x="257" y="7" width="49" height="31"/>
+                        <connections>
+                            <action selector="onOffButtonPressed:" destination="KGk-i7-Jjw" eventType="valueChanged" id="Tig-CU-Bqk"/>
+                        </connections>
+                    </switch>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="TSg-Lo-pD3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="6" id="Bnl-po-L92"/>
-                    <constraint firstItem="rEK-IL-3wu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="fkq-G0-SMR"/>
-                    <constraint firstAttribute="trailing" secondItem="TSg-Lo-pD3" secondAttribute="trailing" constant="18" id="iiO-d3-H36"/>
+                    <constraint firstItem="TSg-Lo-pD3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="7" id="Bnl-po-L92"/>
+                    <constraint firstItem="rEK-IL-3wu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="fkq-G0-SMR"/>
+                    <constraint firstAttribute="trailing" secondItem="TSg-Lo-pD3" secondAttribute="trailing" constant="16" id="iiO-d3-H36"/>
                     <constraint firstItem="rEK-IL-3wu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="qo7-yO-bRU"/>
                 </constraints>
             </tableViewCellContentView>
