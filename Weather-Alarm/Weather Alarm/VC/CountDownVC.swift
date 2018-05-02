@@ -20,9 +20,14 @@ class CountdownVC: UIViewController {
     let myAlarmListSegue = "alarmListSegue" // segue to the alarm pick screen
     let client = DarkSkyClient(apiKey: "327180fccdc777b85e2b1fdbb6adab37") // creates a client to use with the api
     let locationManager = CLLocationManager()
-    let startTime = 10
-    let secondsInDay = 86400
-    let player = AVAudioPlayer()
+    let player: AVAudioPlayer = {
+        
+        var path = Bundle.main.path(forResource: "Vivaldi - The_Four_Seasons - Spring_Mvt_1_Allegro-(clear)", ofType: "mp3")!
+        let url = NSURL(fileURLWithPath: path)
+        let p = try! AVAudioPlayer(contentsOf: url as URL)
+        p.prepareToPlay()
+        return p
+    }()
     
     var currentAlarm:Alarm?
     var alarms = [Alarm]() // an array to hold all saved alarms
@@ -30,12 +35,12 @@ class CountdownVC: UIViewController {
     var secondsLeft = 0 // this variable will hold a starting value of seconds. It can be any amount above zero
     var timer = Timer()
     var isTimeRunning = false // this will be used to make sure only one timer is created at a time
+    var soundFilePath: String?
     
     
     // MARK: Outlets
     // -------------
     @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var weatherLabel: UILabel!
     @IBOutlet weak var setAlarmButton: UIBarButtonItem!
     
@@ -83,7 +88,6 @@ class CountdownVC: UIViewController {
         }
         
         self.timeLabel.text = timeString(time: TimeInterval(secondsLeft))
-        
         //add navBar elements
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addAlarm))
 
@@ -122,6 +126,23 @@ class CountdownVC: UIViewController {
                         
                         //TODO: Add in behavior to display weather result
                         self.weatherLabel?.text = (currentForecast.currently?.icon).map { $0.rawValue }
+                        let currentWeather = (currentForecast.currently?.icon).map { $0.rawValue }
+                        
+                        if currentWeather == "clear-day" || currentWeather == "clear-night" || currentWeather == "partly-cloudy-day" || currentWeather == "partly-cloudy-night" {
+                            
+                        }
+                        else if currentWeather == "cloudy" || currentWeather == "fog" {
+                            
+                        }
+                        else if currentWeather == "rain" || currentWeather == "thunderstorm" || currentWeather == "tornado" || currentWeather == "hail"{
+                            
+                        }
+                        else if currentWeather == "snow" || currentWeather == "sleet" {
+                            
+                        }
+                        else if currentWeather == "windy" {
+                            
+                        }
                         
                     })
                 case .failure(let error):
@@ -149,29 +170,12 @@ class CountdownVC: UIViewController {
     func timerComplete() {
         isTimeRunning = false
         timer.invalidate()
-        
+        currentAlarm?.isRunning = false
         getWeatherInfo()
     }
     
     // MARK: IBActions
     // ---------------
-    @IBAction func startButtonTapped(_ sender: Any) {
-        if isTimeRunning == false {
-            runTimer()
-            startButton.isEnabled = false
-        }
-    }
-    
-    @IBAction func resetButtonTapped(_ sender: Any) {
-        timer.invalidate()
-        
-        secondsLeft = startTime // here we manually enter the restarting point for seconds
-        
-        self.timeLabel.text = timeString(time: TimeInterval(secondsLeft))
-        runTimer()
-    }
-    
-    
     @IBAction func unwindWithCancelTapped(segue: UIStoryboardSegue) {
         print("unwindWithCancelTapped")
         saveAlarms()
@@ -203,6 +207,7 @@ class CountdownVC: UIViewController {
         performSegue(withIdentifier: myAlarmListSegue, sender: nil)
     }
     
+    
     //MARK: Overrides
     // --------------
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -218,6 +223,7 @@ class CountdownVC: UIViewController {
             targetController.isTimeRunning = self.isTimeRunning
         }
     }
+    
     
     //MARK: ObjC Functions
     // -------------------

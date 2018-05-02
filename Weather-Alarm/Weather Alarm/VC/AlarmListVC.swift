@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import CoreLocation
+import ForecastIO
+import AVFoundation
 
 class AlarmListVC: UIViewController {
     
@@ -19,10 +22,14 @@ class AlarmListVC: UIViewController {
     // ----------
     let alarmCell = "AlarmCell"
     let myAddAlarmSegue = "addAlarmSegue" // segue to the add alarm screen
+    let client = DarkSkyClient(apiKey: "327180fccdc777b85e2b1fdbb6adab37") // creates a client to use with the api
+    let locationManager = CLLocationManager()
+    let player = AVAudioPlayer()
+    
     var alarms:[Alarm]!
     var runningAlarms: [Alarm]!
     var currentAlarm: Alarm!
-    var timer:Timer?
+    var timer:Timer!
     var selectedRow = IndexPath()
     var isTimeRunning: Bool! // this will be used to make sure only one timer is created at a time
 
@@ -59,9 +66,39 @@ class AlarmListVC: UIViewController {
     func timerComplete() {
         isTimeRunning = false
         timer?.invalidate()
+        currentAlarm?.isRunning = false
         
         // TODO: Add behavior for when the timer is finished running
-        //getWeatherInfo()
+        getWeatherInfo()
+    }
+    
+    func getWeatherInfo() {
+        // Once the user's location is known, the api will check for current weather condition at that location
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self as? CLLocationManagerDelegate
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+            print("location = \(String(describing: locationManager.location))")
+            
+            client.getForecast(latitude: (locationManager.location?.coordinate.latitude)!, longitude: (locationManager.location?.coordinate.longitude)!) { result in
+                switch result {
+                case .success(let currentForecast, _):
+                    // we got the current forecast
+                    print("\(String(describing: currentForecast.currently?.summary))")
+                    
+                    DispatchQueue.main.async(execute: {() -> Void in
+                        
+                        //TODO: Add in behavior to display weather result
+                        
+                        
+                    })
+                case .failure(let error):
+                    // there was an error
+                    print("\(error)")
+                    return
+                }
+            }
+        }
     }
 
     
@@ -72,14 +109,17 @@ class AlarmListVC: UIViewController {
         let pathToFile = FileManager.filePathInDocumentsDirectory(fileName: fileName)
         NSKeyedArchiver.archiveRootObject(self.alarms, toFile: pathToFile.path)
         
-        //let destinationNavigationController = segue.destination as! UINavigationController
         
         // passes the alarms from the base view to the list
         if let targetController = segue.destination as? CountdownVC {
-            targetController.timer = self.timer!
+            targetController.timer = self.timer
             targetController.runningAlarms = self.runningAlarms
             targetController.currentAlarm = self.currentAlarm
             targetController.isTimeRunning = self.isTimeRunning
+            
+            if currentAlarm == nil {
+                targetController.timeLabel.text = targetController.timeString(time: 0)
+            }
         }
     }
     
@@ -209,6 +249,7 @@ extension AlarmListVC: AlarmCellDelegate {
                 timer?.invalidate()
                 isTimeRunning = false
                 currentAlarm = nil
+    
             }
         }
         

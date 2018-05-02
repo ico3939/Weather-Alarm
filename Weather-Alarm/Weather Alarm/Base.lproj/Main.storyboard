@@ -7,7 +7,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
-        <capability name="Baseline standard spacing" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -31,26 +30,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xne-59-YCI">
-                                <rect key="frame" x="123" y="381" width="38" height="30"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Start">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="startButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wiQ-qB-bPi"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eUg-Ga-SMp">
-                                <rect key="frame" x="217" y="381" width="42" height="30"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Reset">
-                                    <color key="titleColor" red="0.91940576424870468" green="0.0" blue="0.054801707320889605" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="resetButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HcX-Bm-6gP"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Weather:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u2T-8y-aI2">
                                 <rect key="frame" x="13" y="131" width="188" height="29"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
@@ -67,18 +46,13 @@
                         <color key="backgroundColor" red="0.76305456606217614" green="0.76305456606217614" blue="0.76305456606217614" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Qxk-7G-o0Y" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="238" id="28H-AA-Hoe"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="eUg-Ga-SMp" secondAttribute="trailing" constant="116" id="70i-OT-8EN"/>
                             <constraint firstItem="u2T-8y-aI2" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="67" id="7sf-7T-fNY"/>
-                            <constraint firstItem="xne-59-YCI" firstAttribute="firstBaseline" secondItem="Qxk-7G-o0Y" secondAttribute="baseline" constant="44" symbolType="layoutAnchor" id="8br-bR-ijO"/>
-                            <constraint firstItem="xne-59-YCI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="123" id="AiQ-tS-Nib"/>
+                            <constraint firstItem="u2T-8y-aI2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="13" id="C8Y-s3-PQJ"/>
                             <constraint firstItem="Qxk-7G-o0Y" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Cd8-dV-UHn"/>
-                            <constraint firstItem="eUg-Ga-SMp" firstAttribute="top" secondItem="Qxk-7G-o0Y" secondAttribute="bottom" constant="-6" id="DUr-te-bcD"/>
                             <constraint firstItem="Z44-co-yq5" firstAttribute="leading" secondItem="u2T-8y-aI2" secondAttribute="trailing" constant="16" id="Gd7-JR-ino"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Qxk-7G-o0Y" secondAttribute="trailing" id="JNJ-cL-R23"/>
                             <constraint firstItem="Qxk-7G-o0Y" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="UHY-mo-Ts5"/>
                             <constraint firstItem="u2T-8y-aI2" firstAttribute="baseline" secondItem="Z44-co-yq5" secondAttribute="baseline" id="URq-V4-Zd7"/>
-                            <constraint firstItem="Z44-co-yq5" firstAttribute="leading" secondItem="eUg-Ga-SMp" secondAttribute="leading" id="gnI-OG-1dS"/>
-                            <constraint firstItem="eUg-Ga-SMp" firstAttribute="leading" secondItem="xne-59-YCI" secondAttribute="trailing" constant="56" id="l8b-LS-pX0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -92,7 +66,6 @@
                     <connections>
                         <outlet property="TimeLabel" destination="Qxk-7G-o0Y" id="HKF-Xa-ZsZ"/>
                         <outlet property="setAlarmButton" destination="9wm-kd-zht" id="KKV-Nq-qfW"/>
-                        <outlet property="startButton" destination="xne-59-YCI" id="43Q-mX-dvL"/>
                         <outlet property="timeLabel" destination="Qxk-7G-o0Y" id="3hP-vI-coW"/>
                         <outlet property="weatherLabel" destination="Z44-co-yq5" id="Dej-Hf-v9s"/>
                         <segue destination="kZk-1y-VOe" kind="popoverPresentation" identifier="addAlarmSegue" popoverAnchorView="8bC-Xf-vdC" id="BXr-Yc-d66">
@@ -165,7 +138,6 @@
         <!--Navigation Controller-->
         <scene sceneID="hOJ-VC-AhN">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="D3q-gv-OYr" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="CNp-AF-T9j" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="tOc-xe-ZtT">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -175,6 +147,7 @@
                         <segue destination="FYu-Gf-C9t" kind="relationship" relationship="rootViewController" id="lYe-k7-e38"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="D3q-gv-OYr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1486" y="-458"/>
         </scene>
