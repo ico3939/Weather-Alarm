@@ -174,14 +174,16 @@ extension AlarmListVC: AlarmCellDelegate {
     func alarmButtonClicked(alarm: Alarm) {
         
         alarm.switchOnOff()
-        print(runningAlarms)
         // start running the timer
         if alarm.isRunning {
             
             // makes the selected alarm the current one
             if currentAlarm == nil || alarm.currentTimeLeft < (currentAlarm?.currentTimeLeft)!  {
                 currentAlarm = alarm
+                print(currentAlarm.timeOfDay)
+                currentAlarm.calcStartSecondsLeft(startTime: currentAlarm.startTime)
                 runningAlarms.insert(alarm, at: 0)
+                runTimer()
             }
             else {
                 // add the alarm to the stack of running timers
@@ -190,21 +192,23 @@ extension AlarmListVC: AlarmCellDelegate {
                 
             }
             
-            if isTimeRunning == false {
-                
-                // start the timer
-                runTimer()
-            }
         }
         else {
             
-            // remove the alarm from the ones currently running
             runningAlarms = runningAlarms.filter({$0 !== alarm})
             
+            // remove the alarm from the ones currently running
+            if alarm.startTime == currentAlarm.startTime && !runningAlarms.isEmpty {
+                currentAlarm = runningAlarms[0]
+                currentAlarm.calcStartSecondsLeft(startTime: currentAlarm.startTime)
+                runTimer()
+            }
+            
             // stop the timer if there are no more alarms that are on
-            if runningAlarms.isEmpty {
+            else if runningAlarms.isEmpty {
                 timer?.invalidate()
                 isTimeRunning = false
+                currentAlarm = nil
             }
         }
         
