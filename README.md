@@ -16,3 +16,18 @@ Milestone1:
     - put in some default music
   - create separate screens for picking time
   - refactor some code into separate classes
+  
+  
+Milestone 3:
+- Features:
+  - The user can create and save alarms
+    - The alarms will persist even after the program closes
+    - The alarms are organized by time closest to the users' time
+    - The user can delete alarms by pressing and holding the alarm in the alarm list view nd picking 'delete.'
+    - Multiple alarms can be running simultaneously. Once once runs out, the next one will continue counting
+  - The user can set an alarm for the timeof sunrise for the next day
+  - The app takes in weather information from the DarkSky API and, depending on the type of information is requested, can either retrieve the given location's weather for that point in time or over the course of the next week
+    - The main screen's background and dynamically change based on the weather information
+    - A different tone is played depending on the weather if the timer runs out
+    
+    
