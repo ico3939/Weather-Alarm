@@ -20,7 +20,6 @@ class WeatherManager: NSObject {
     var forecast: Forecast?
     var currentWeather: String?
     var isDelegateSet: Bool!
-    var sunriseTime: Int?
     
     // MARK: Constructor
     // -----------------
@@ -60,24 +59,39 @@ class WeatherManager: NSObject {
 
     }
     
-    func chooseAlarm() {
+    func chooseAlarmBasedOnWeather() -> String { // return a string for the url of the sound clip based on the current weather condition
         
-        if currentWeather == "clear-day" || currentWeather == "clear-night" || currentWeather == "partly-cloudy-day" || currentWeather == "partly-cloudy-night" {
+        if isDelegateSet {
+            let currentDate = Date()
+            getWeatherInfo(date: currentDate)
             
+            if currentWeather == "clear-day" || currentWeather == "clear-night" || currentWeather == "partly-cloudy-day" || currentWeather == "partly-cloudy-night" {
+                
+                return "Vivaldi - The_Four_Seasons - Spring_Mvt_1_Allegro-(clear)"
+            }
+            else if currentWeather == "cloudy" || currentWeather == "fog" {
+                
+                return "Vivaldi - The_Four_Seasons - Winter_Mvt_3_Allegro-(clouds)"
+            }
+            else if currentWeather == "rain"{
+                
+                return "Vivaldi - The_Four_Seasons - Spring_Mvt_2_Largo-(rain)"
+            }
+            else if currentWeather == "thunderstorm" || currentWeather == "tornado" || currentWeather == "hail" {
+                
+                return "Vivaldi - The_Four_Seasons - Summer_Mvt_3-(storm)"
+            }
+            else if currentWeather == "snow" || currentWeather == "sleet" {
+                
+                return "Vivaldi - The_Four_Seasons - Winter_Mvt_1-(snow)"
+            }
+            else if currentWeather == "windy" {
+                
+                return "Wagner - The_Ride_Of_The_Valkyries-(wind)"
+            }
         }
-        else if currentWeather == "cloudy" || currentWeather == "fog" {
-            
-        }
-        else if currentWeather == "rain" || currentWeather == "thunderstorm" || currentWeather == "tornado" || currentWeather == "hail"{
-            
-        }
-        else if currentWeather == "snow" || currentWeather == "sleet" {
-            
-        }
-        else if currentWeather == "windy" {
-            
-        }
-        
+
+        return ""
     }
     
     func delegateIsSet() -> Bool {
@@ -93,31 +107,44 @@ class WeatherManager: NSObject {
         return false
     }
     
-    func getSunriseTomorrow() -> Int{
+    func getSunriseTimeTomorrow() -> Int{
         
         if isDelegateSet {
             
             let tomorrowDate = Date().tomorrow
             getWeatherInfo(date: tomorrowDate)
             
-            let absoluteSunriseTime = self.forecast?.currently?.sunriseTime
-            return Int(Date().timeIntervalSince(absoluteSunriseTime!)) // returns the time until sunrise tomorrow
+            if let absoluteSunriseTime = self.forecast?.currently?.sunriseTime {
+                
+                return Int(Date().timeIntervalSince(absoluteSunriseTime)) // returns the time until sunrise tomorrow
+            }
             
         }
         return 0
         
     }
     
-    func getPrecipitation() {
+    func isHeavyPrecipitationAtTime(timeRemaining: Int) -> Bool{
         
         if isDelegateSet {
             
+            let currentDate = Date()
+            let alarmDate = Date(timeInterval: TimeInterval(timeRemaining), since: currentDate)
+            getWeatherInfo(date: alarmDate)
+            
+            if (forecast?.currently?.precipitationIntensity)! > 0.3  { // indicates that there will be more than 0.3 inches of water per hour at that time (what is considered heavy precipitation)
+                
+                return true
+            }
+            
         }
-        
+        return false
     }
 
 }
 
+// MARK: Extensions
+// -----------------
 extension Date {
     var yesterday: Date {
         return Calendar.current.date(byAdding: .day, value: -1, to: noon)!

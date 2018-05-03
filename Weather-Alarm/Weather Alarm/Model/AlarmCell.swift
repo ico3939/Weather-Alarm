@@ -28,6 +28,7 @@ class AlarmCell: UITableViewCell {
     
     @IBAction func onOffButtonPressed(_ sender: Any) {
         print("switch pressed")
+        
         delegate?.alarmButtonClicked(alarm: self.alarm!)
     }
     

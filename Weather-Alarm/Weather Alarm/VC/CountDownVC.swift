@@ -8,8 +8,6 @@
 
 import UIKit
 import CoreLocation
-import ForecastIO
-import AVFoundation
 
 
 class CountdownVC: UIViewController {
@@ -18,16 +16,8 @@ class CountdownVC: UIViewController {
     // -----------
     let myAddAlarmSegue = "addAlarmSegue" // segue to the add alarm screen
     let myAlarmListSegue = "alarmListSegue" // segue to the alarm pick screen
-    let client = DarkSkyClient(apiKey: "327180fccdc777b85e2b1fdbb6adab37") // creates a client to use with the api
-    let locationManager = CLLocationManager()
-    let player: AVAudioPlayer = {
-        
-        var path = Bundle.main.path(forResource: "Vivaldi - The_Four_Seasons - Spring_Mvt_1_Allegro-(clear)", ofType: "mp3")!
-        let url = NSURL(fileURLWithPath: path)
-        let p = try! AVAudioPlayer(contentsOf: url as URL)
-        p.prepareToPlay()
-        return p
-    }()
+    let weatherManager = WeatherManager()
+    let soundManager = SoundManager()
     
     var currentAlarm:Alarm?
     var alarms = [Alarm]() // an array to hold all saved alarms
@@ -46,11 +36,6 @@ class CountdownVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // instantiate the CLLocationManager class
-        //----------------------------------------
-        self.locationManager.requestAlwaysAuthorization() // Ask for Authorisation from the User
-        self.locationManager.requestWhenInUseAuthorization() // For use in foreground
         
         // load in alarms
         let fileName = "allAlarms.archive"
@@ -72,6 +57,7 @@ class CountdownVC: UIViewController {
             }
             
             if !runningAlarms.isEmpty {
+                print(runningAlarms)
                 runningAlarms.sort{$0.currentTimeLeft < $1.currentTimeLeft}
                 currentAlarm = runningAlarms[0]
                 
@@ -88,8 +74,6 @@ class CountdownVC: UIViewController {
         }
         
         self.timeLabel.text = timeString(time: TimeInterval(secondsLeft))
-        //add navBar elements
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addAlarm))
 
         
     }
@@ -108,51 +92,6 @@ class CountdownVC: UIViewController {
         print("Saved = \(success) to \(pathToFile)")
     }
     
-    func getWeatherInfo() {
-        // Once the user's location is known, the api will check for current weather condition at that location
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self as? CLLocationManagerDelegate
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            locationManager.startUpdatingLocation()
-            print("location = \(String(describing: locationManager.location))")
-            
-            client.getForecast(latitude: (locationManager.location?.coordinate.latitude)!, longitude: (locationManager.location?.coordinate.longitude)!) { result in
-                switch result {
-                case .success(let currentForecast, _):
-                    // we got the current forecast
-                    print("\(String(describing: currentForecast.currently?.summary))")
-                    
-                    DispatchQueue.main.async(execute: {() -> Void in
-                        
-                        //TODO: Add in behavior to display weather result
-                        //self.weatherLabel?.text = (currentForecast.currently?.icon).map { $0.rawValue }
-                        let currentWeather = (currentForecast.currently?.icon).map { $0.rawValue }
-                        
-                        if currentWeather == "clear-day" || currentWeather == "clear-night" || currentWeather == "partly-cloudy-day" || currentWeather == "partly-cloudy-night" {
-                            
-                        }
-                        else if currentWeather == "cloudy" || currentWeather == "fog" {
-                            
-                        }
-                        else if currentWeather == "rain" || currentWeather == "thunderstorm" || currentWeather == "tornado" || currentWeather == "hail"{
-                            
-                        }
-                        else if currentWeather == "snow" || currentWeather == "sleet" {
-                            
-                        }
-                        else if currentWeather == "windy" {
-                            
-                        }
-                        
-                    })
-                case .failure(let error):
-                    // there was an error
-                    print("\(error)")
-                    return
-                }
-            }
-        }
-    }
     
     func timeString(time:TimeInterval) -> String {
         let hours = Int(time) / 3600
@@ -171,38 +110,13 @@ class CountdownVC: UIViewController {
         isTimeRunning = false
         timer.invalidate()
         currentAlarm?.isRunning = false
-        getWeatherInfo()
+        
+        
+        // TODO: Add functionality for once the timer is finished running
     }
     
     // MARK: IBActions
     // ---------------
-    @IBAction func unwindWithCancelTapped(segue: UIStoryboardSegue) {
-        print("unwindWithCancelTapped")
-        saveAlarms()
-        
-    }
-    
-    @IBAction func unwindWithDoneTapped(segue: UIStoryboardSegue) {
-        print("unwindWithDoneTapped")
-        // add the alarm to the list and save it
-        if let addAlarmVC = segue.source as? AddAlarmVC {
-            if let alarm = addAlarmVC.alarm {
-                if !alarms.contains(alarm) {
-                    
-                    alarms.append(alarm)
-                    alarms.sort{$0.startTime < $1.startTime}
-                    saveAlarms()
-                    
-                    print("adding alarm")
-                    print(timeString(time: TimeInterval(alarm.startTime)))
-                }
-                else {
-                    print("Ignoring alarm of time \(alarm.startTime)")
-                }
-            }
-        }
-    }
-    
     @IBAction func setAlarmButtonClicked(_ sender: Any) {
         performSegue(withIdentifier: myAlarmListSegue, sender: nil)
     }
@@ -227,10 +141,6 @@ class CountdownVC: UIViewController {
     
     //MARK: ObjC Functions
     // -------------------
-    @objc func addAlarm() {
-        performSegue(withIdentifier: myAddAlarmSegue, sender: nil)
-        
-    }
     
     @objc func updateTimer() {
         // if time is up
@@ -245,16 +155,5 @@ class CountdownVC: UIViewController {
     }
     
     
-}
-
-extension UIViewController {
-    func performSegueToReturnBack() {
-        if let nav = self.navigationController {
-            nav.popViewController(animated: true)
-        }
-        else {
-            self.dismiss(animated: true, completion: nil)
-        }
-    }
 }
 
