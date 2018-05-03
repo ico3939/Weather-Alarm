@@ -42,6 +42,7 @@ class AlarmListVC: UITableViewController, AlarmCellDelegate {
 
         
         // set up the cells
+        alarms.sort{$0.currentTimeLeft < $1.currentTimeLeft}
         alarmsTableView.dataSource = self
         alarmsTableView.rowHeight = UITableViewAutomaticDimension
         
@@ -127,19 +128,7 @@ class AlarmListVC: UITableViewController, AlarmCellDelegate {
         // start running the timer
         if alarm.isRunning {
             
-            // makes the selected alarm the current one
-            if currentAlarm == nil || alarm.currentTimeLeft < (currentAlarm?.currentTimeLeft)!  {
-                currentAlarm = alarm
-                currentAlarm?.calcStartSecondsLeft(startTime: (currentAlarm?.startTime)!)
-                runningAlarms.insert(alarm, at: 0)
-                runTimer()
-            }
-            else {
-                // add the alarm to the stack of running timers
-                runningAlarms.append(alarm)
-                runningAlarms.sort{$0.currentTimeLeft < $1.currentTimeLeft}
-                
-            }
+            insertNewAlarm(alarm: alarm)
             
         }
         else {
@@ -164,6 +153,23 @@ class AlarmListVC: UITableViewController, AlarmCellDelegate {
         
     }
     
+    func insertNewAlarm(alarm: Alarm) {
+        
+        // makes the selected alarm the current one
+        if currentAlarm == nil || alarm.currentTimeLeft < (currentAlarm?.currentTimeLeft)!  {
+            currentAlarm = alarm
+            currentAlarm?.calcStartSecondsLeft(startTime: (currentAlarm?.startTime)!)
+            runningAlarms.insert(alarm, at: 0)
+            runTimer()
+        }
+        else {
+            // add the alarm to the stack of running timers
+            runningAlarms.append(alarm)
+            runningAlarms.sort{$0.currentTimeLeft < $1.currentTimeLeft}
+            
+        }
+    }
+    
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         
         if(action == #selector(deleteAlarm)) {
@@ -178,24 +184,23 @@ class AlarmListVC: UITableViewController, AlarmCellDelegate {
         return true
     }
     
-    
-    @IBAction func unwindWithCancelTapped(segue: UIStoryboardSegue) {
-        print("unwindWithCancelTapped")
+    @IBAction func exitWithCancelTapped(segue: UIStoryboardSegue) {
+        print("exitWithCancelTapped")
         saveAlarms()
-        
     }
     
-    @IBAction func exitWithDoneTapped(_ sender: Any) {
-    }
-    @IBAction func unwindWithDoneTapped(segue: UIStoryboardSegue) {
-        print("unwindWithDoneTapped")
+    @IBAction func exitWithDoneTapped(segue: UIStoryboardSegue) {
+        print("exitWithDoneTapped")
         // add the alarm to the list and save it
         if let addAlarmVC = segue.source as? AddAlarmVC {
             if let alarm = addAlarmVC.alarm {
                 if !alarms.contains(alarm) {
                     
                     alarms.append(alarm)
-                    alarms.sort{$0.startTime < $1.startTime}
+                    alarms.sort{$0.currentTimeLeft < $1.currentTimeLeft}
+                    insertNewAlarm(alarm: alarm)
+                    let indexPath = IndexPath(row: alarms.index(of: alarm)!, section: 0)
+                    self.alarmsTableView.insertRows(at: [indexPath], with: .automatic)
                     saveAlarms()
                 }
                 else {
@@ -204,7 +209,7 @@ class AlarmListVC: UITableViewController, AlarmCellDelegate {
             }
         }
     }
-
+    
     
     //MARK: ObjC Functions
     // -------------------

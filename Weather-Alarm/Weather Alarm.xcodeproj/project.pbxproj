@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3F5EC91520894E7C00617515 /* AlarmListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5EC91420894E7C00617515 /* AlarmListVC.swift */; };
+		3F1F69BE209B07D200F96744 /* AlarmListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5EC91420894E7C00617515 /* AlarmListVC.swift */; };
 		3F76C88B207C024900277468 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F76C88A207C024900277468 /* AppDelegate.swift */; };
 		3F76C88D207C024900277468 /* CountDownVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F76C88C207C024900277468 /* CountDownVC.swift */; };
 		3F76C890207C024900277468 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F76C88E207C024900277468 /* Main.storyboard */; };
@@ -262,13 +262,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F5EC91520894E7C00617515 /* AlarmListVC.swift in Sources */,
 				3F76C88D207C024900277468 /* CountDownVC.swift in Sources */,
 				3FC1091D209A75740095C0F0 /* WeatherManager.swift in Sources */,
 				3FE1B65320866E8B0089B0EC /* AddAlarmVC.swift in Sources */,
 				3FA8D68C20967F9B00092D45 /* AlarmCell.swift in Sources */,
 				3F76C88B207C024900277468 /* AppDelegate.swift in Sources */,
 				3FD60A262080134600756DEF /* Alarm.swift in Sources */,
+				3F1F69BE209B07D200F96744 /* AlarmListVC.swift in Sources */,
 				A290D16520854237002A88AB /* MyFileFunctions.swift in Sources */,
 				3FC1091F209A79660095C0F0 /* SoundManager.swift in Sources */,
 			);

@@ -22,7 +22,7 @@ class Alarm: NSObject, NSCoding {
     init(startTime:Int, timeOfDay:String) {
         self.startTime = startTime
         self.timeOfDay = timeOfDay
-        self.isRunning = false
+        self.isRunning = true
         
         // set up the initial seconds remaining
         let currentDate = Date()

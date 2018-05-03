@@ -102,13 +102,14 @@
                     <navigationItem key="navigationItem" title="Alarms" id="8Uw-yV-oxF">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="2ub-cu-pfE">
                             <connections>
-                                <segue destination="99P-u6-cxV" kind="unwind" identifier="" unwindAction="unwindWithCancelTappedWithSegue:" id="xYz-WU-OhO"/>
+                                <action selector="unwindWithCancelTapped:" destination="99P-u6-cxV" id="iNe-mH-txS"/>
+                                <segue destination="99P-u6-cxV" kind="unwind" unwindAction="unwindWithBackTappedWithSegue:" id="thP-9r-LsJ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="alarmsTableView" destination="wca-zQ-EqO" id="bfL-dK-MBH"/>
-                        <segue destination="gcw-co-jtG" kind="show" identifier="addAlarmSegue" id="xwt-M8-rRa"/>
+                        <segue destination="gcw-co-jtG" kind="presentation" identifier="addAlarmSegue" id="xwt-M8-rRa"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XSJ-ZW-67J" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -171,9 +172,15 @@
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="lsE-Hb-VXy">
                             <connections>
                                 <action selector="exitWithDoneTapped:" destination="Nph-gG-V8v" id="kTL-Rf-lpn"/>
+                                <segue destination="Nph-gG-V8v" kind="unwind" unwindAction="exitWithCancelTappedWithSegue:" id="0U1-SR-4g5"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="S8h-yo-5zR"/>
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="S8h-yo-5zR">
+                            <connections>
+                                <action selector="exitWithDoneTapped:" destination="Nph-gG-V8v" id="H7u-0g-B8K"/>
+                                <segue destination="Nph-gG-V8v" kind="unwind" unwindAction="exitWithDoneTappedWithSegue:" id="ehk-3N-QNJ"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="datePicker" destination="684-Xg-UQL" id="Hdv-Lp-6fl"/>

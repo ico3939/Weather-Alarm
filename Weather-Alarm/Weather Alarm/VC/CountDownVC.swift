@@ -51,10 +51,12 @@ class CountdownVC: UIViewController {
         if !alarms.isEmpty{
             
             for alarm in alarms {
+                alarm.calcStartSecondsLeft(startTime: alarm.startTime) // calculate the current time left for each of the alarms and sort accordingly
                 if alarm.isRunning {
                     runningAlarms.append(alarm)
                 }
             }
+            alarms.sort{$0.currentTimeLeft < $1.currentTimeLeft}
             
             if !runningAlarms.isEmpty {
                 print(runningAlarms)
@@ -117,6 +119,12 @@ class CountdownVC: UIViewController {
     
     // MARK: IBActions
     // ---------------
+    @IBAction func unwindWithBackTapped(segue: UIStoryboardSegue) {
+        print("unwindWithCancelTapped")
+        saveAlarms()
+    }
+    
+    
     @IBAction func setAlarmButtonClicked(_ sender: Any) {
         performSegue(withIdentifier: myAlarmListSegue, sender: nil)
     }
