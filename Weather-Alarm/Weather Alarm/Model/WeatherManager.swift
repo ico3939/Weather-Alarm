@@ -14,8 +14,8 @@ class WeatherManager: NSObject {
     
     // MARK: ivars
     // -----------
-    let client = DarkSkyClient(apiKey: "327180fccdc777b85e2b1fdbb6adab37") // creates a client to use with the api
-    let locationManager = CLLocationManager()
+    var client = DarkSkyClient(apiKey: "327180fccdc777b85e2b1fdbb6adab37")
+    var locationManager = CLLocationManager()
     
     var forecast: Forecast?
     var currentWeather: String?
@@ -24,7 +24,6 @@ class WeatherManager: NSObject {
     // MARK: Constructor
     // -----------------
     override init() {
-        
         super.init()
         
         // instantiate the CLLocationManager class
@@ -40,9 +39,10 @@ class WeatherManager: NSObject {
     // ----------------------
     func getWeatherInfo(date: Date) {
         // Once the user's location is known, the api will check for current weather condition at that location
-
+        
+        print(date)
         if isDelegateSet {
-            client.getForecast(latitude: (locationManager.location?.coordinate.latitude)!, longitude: (locationManager.location?.coordinate.longitude)!, time: date, completion: { result in
+            self.client.getForecast(latitude: (locationManager.location?.coordinate.latitude)!, longitude: (locationManager.location?.coordinate.longitude)!, time: date, completion: { result in
                 switch result {
                 case .success(let currentForecast, _):
                     // we got the current forecast
@@ -107,16 +107,29 @@ class WeatherManager: NSObject {
         return false
     }
     
-    func getSunriseTimeTomorrow() -> Int{
+    func getNextSunriseTime() -> Int{
         
         if isDelegateSet {
             
             let tomorrowDate = Date().tomorrow
             getWeatherInfo(date: tomorrowDate)
             
+            
             if let absoluteSunriseTime = self.forecast?.currently?.sunriseTime {
                 
-                return Int(Date().timeIntervalSince(absoluteSunriseTime)) // returns the time until sunrise tomorrow
+                let currentDate = Date()
+                let cal = Calendar(identifier: .gregorian)
+                let tomorrowMidnight = cal.startOfDay(for: currentDate.addingTimeInterval(86400))
+                
+                var startTimeSeconds = Int(absoluteSunriseTime.timeIntervalSince(tomorrowMidnight))
+                
+                if startTimeSeconds % 60 != 0 {
+                    let remainder = startTimeSeconds % 60
+                    startTimeSeconds -= remainder
+                }
+                return startTimeSeconds
+                
+                //return Int(Date().timeIntervalSince(absoluteSunriseTime)) // returns the time until sunrise tomorrow
             }
             
         }

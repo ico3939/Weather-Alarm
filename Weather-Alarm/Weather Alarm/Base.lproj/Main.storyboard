@@ -25,19 +25,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qxk-7G-o0Y" userLabel="TimeLabel">
-                                <rect key="frame" x="57" y="302" width="261" height="85"/>
+                                <rect key="frame" x="57" y="258" width="261" height="85"/>
                                 <fontDescription key="fontDescription" name="Kailasa-Bold" family="Kailasa" pointSize="65"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Weather:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u2T-8y-aI2">
-                                <rect key="frame" x="13" y="131" width="188" height="29"/>
+                                <rect key="frame" x="13" y="87" width="188" height="29"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="________" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z44-co-yq5">
-                                <rect key="frame" x="217" y="131" width="83" height="29"/>
+                                <rect key="frame" x="217" y="87" width="83" height="29"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -75,6 +75,39 @@
             </objects>
             <point key="canvasLocation" x="462" y="-458"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="434-FU-F05">
+            <objects>
+                <navigationController id="vMK-an-WsZ" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iGf-Tr-HdT">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="presentation" id="eul-be-o50"/>
+                        <segue destination="bpL-60-Ev7" kind="relationship" relationship="rootViewController" id="lQt-Cq-VC2"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="k3E-wb-Tak" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="462" y="-1254"/>
+        </scene>
+        <!--Weather SettingsVC-->
+        <scene sceneID="kjI-EN-8Kg">
+            <objects>
+                <viewController id="bpL-60-Ev7" customClass="WeatherSettingsVC" customModule="Weather_Alarm" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="t3l-PB-9oK">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="K8P-FI-trk"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="gBd-ty-AxE"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NjP-eD-Ynz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1486" y="-1254"/>
+        </scene>
         <!--Alarms-->
         <scene sceneID="aRf-7b-9sE">
             <objects>
@@ -83,6 +116,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="H15-jm-TOP">
+                            <rect key="frame" x="0.0" y="72" width="375" height="127"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jXu-rc-3BP">
+                                    <rect key="frame" x="312" y="5" width="49" height="31"/>
+                                    <connections>
+                                        <action selector="sunriseSwitchPressed:" destination="FYu-Gf-C9t" eventType="valueChanged" id="lJ4-tI-cXh"/>
+                                    </connections>
+                                </switch>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Set alarm for sunrise?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QeA-F1-3QK">
+                                    <rect key="frame" x="129" y="12" width="167" height="21"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="jXu-rc-3BP" secondAttribute="trailing" constant="16" id="4Du-WO-zdd"/>
+                                <constraint firstItem="QeA-F1-3QK" firstAttribute="top" secondItem="H15-jm-TOP" secondAttribute="top" constant="12" id="4W3-nL-fcq"/>
+                                <constraint firstItem="jXu-rc-3BP" firstAttribute="top" secondItem="H15-jm-TOP" secondAttribute="top" constant="5" id="8yI-Sl-LhE"/>
+                                <constraint firstItem="jXu-rc-3BP" firstAttribute="leading" secondItem="QeA-F1-3QK" secondAttribute="trailing" constant="17" id="dbX-1a-K3G"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="alarmCell" id="uUv-zg-sd7">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
@@ -109,13 +167,14 @@
                     </navigationItem>
                     <connections>
                         <outlet property="alarmsTableView" destination="wca-zQ-EqO" id="bfL-dK-MBH"/>
+                        <outlet property="sunriseSwitch" destination="jXu-rc-3BP" id="Dl1-y3-uQw"/>
                         <segue destination="gcw-co-jtG" kind="presentation" identifier="addAlarmSegue" id="xwt-M8-rRa"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XSJ-ZW-67J" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="99P-u6-cxV" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2439" y="-458"/>
+            <point key="canvasLocation" x="2437.5999999999999" y="-458.32083958020991"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hOJ-VC-AhN">
@@ -189,7 +248,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F5b-Fy-Sy0" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Nph-gG-V8v" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1519" y="332"/>
+            <point key="canvasLocation" x="2438" y="1159"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="drC-wc-s0Y">
@@ -224,4 +283,7 @@
             <point key="canvasLocation" x="2438" y="345"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="eul-be-o50"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -14,7 +14,9 @@ class AlarmListVC: UITableViewController, AlarmCellDelegate {
     // MARK: Outlets
     // -------------
     @IBOutlet var alarmsTableView: UITableView!
+    @IBOutlet weak var sunriseSwitch: UISwitch!
     var timeLabel: UILabel!
+    
     
     //MARK: ivars
     // ----------
@@ -48,6 +50,21 @@ class AlarmListVC: UITableViewController, AlarmCellDelegate {
         
         let nibName = UINib(nibName: alarmCell, bundle:nil)
         alarmsTableView.register(nibName, forCellReuseIdentifier: alarmCell)
+        
+        // if there is a sunrise alarm, do not include it in the table
+        for alarm in alarms {
+            
+            if alarm.timeOfDay == "Sunrise" {
+                
+                let indexPath = IndexPath(row: alarms.index(of: alarm)!, section: 0)
+                self.alarmsTableView.deleteRows(at: [indexPath], with: .automatic)
+                sunriseSwitch.isOn = true
+                break
+            }
+            else {
+                sunriseSwitch.isOn = false
+            }
+        }
         
         //add navBar elements
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addAlarm))
@@ -106,17 +123,18 @@ class AlarmListVC: UITableViewController, AlarmCellDelegate {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
         return alarms.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: alarmCell, for: indexPath) as! AlarmCell
         let alarm = alarms[indexPath.row]
+        
         cell.alarm = alarm
         cell.alarmLabel.text = alarm.timeOfDay
         cell.alarmButton.isOn = alarm.isRunning
         cell.delegate = self
-        
         
         return cell
     }
@@ -194,7 +212,7 @@ class AlarmListVC: UITableViewController, AlarmCellDelegate {
         // add the alarm to the list and save it
         if let addAlarmVC = segue.source as? AddAlarmVC {
             if let alarm = addAlarmVC.alarm {
-                if !alarms.contains(alarm) {
+                if !alarms.contains(alarm){
                     
                     alarms.append(alarm)
                     alarms.sort{$0.currentTimeLeft < $1.currentTimeLeft}
@@ -208,6 +226,41 @@ class AlarmListVC: UITableViewController, AlarmCellDelegate {
                 }
             }
         }
+    }
+    @IBAction func sunriseSwitchPressed(_ sender: Any) {
+        
+        if self.sunriseSwitch.isOn {
+            let startTime = weatherManager.getNextSunriseTime()
+            let sunriseAlarm = Alarm(startTime: startTime, timeOfDay: "Sunrise")
+            alarmButtonClicked(alarm: sunriseAlarm)
+        }
+        else {
+            
+            var sunriseAlarm: Alarm? = Alarm(startTime: 0, timeOfDay: "")
+            for alarm in alarms {
+                
+                if alarm.timeOfDay == "Sunrise" {
+                    sunriseAlarm = alarm
+                    break
+                }
+            }
+            
+            runningAlarms = runningAlarms.filter({$0 !== sunriseAlarm})
+            
+            // if the deleted alarm was equal to the current one
+            if sunriseAlarm?.startTime == currentAlarm?.startTime && !runningAlarms.isEmpty {
+                currentAlarm = runningAlarms[0]
+                currentAlarm?.calcStartSecondsLeft(startTime: (currentAlarm?.startTime)!)
+                runTimer()
+            }
+            else if runningAlarms.isEmpty{
+                timer?.invalidate()
+                isTimeRunning = false
+                currentAlarm = nil
+            }
+            alarms = alarms.filter({$0 !== sunriseAlarm})
+        }
+        
     }
     
     

@@ -87,14 +87,6 @@ class CountdownVC: UIViewController {
         print("locations = \(locValue.latitude) \(locValue.longitude)")
     }
     
-    func saveAlarms() {
-        let fileName = "allAlarms.archive"
-        let pathToFile = FileManager.filePathInDocumentsDirectory(fileName: fileName)
-        let success = NSKeyedArchiver.archiveRootObject(alarms, toFile: pathToFile.path)
-        print("Saved = \(success) to \(pathToFile)")
-    }
-    
-    
     func timeString(time:TimeInterval) -> String {
         let hours = Int(time) / 3600
         let minutes = Int(time) / 60 % 60
@@ -121,7 +113,6 @@ class CountdownVC: UIViewController {
     // ---------------
     @IBAction func unwindWithBackTapped(segue: UIStoryboardSegue) {
         print("unwindWithCancelTapped")
-        saveAlarms()
     }
     
     
@@ -143,6 +134,8 @@ class CountdownVC: UIViewController {
             targetController.currentAlarm = self.currentAlarm
             targetController.runningAlarms = self.runningAlarms
             targetController.isTimeRunning = self.isTimeRunning
+            
+
         }
     }
     
