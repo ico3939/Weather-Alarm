@@ -73,13 +73,6 @@ class Alarm: NSObject, NSCoding {
         
     }
     
-    func reset() {
-        self.currentTimeLeft = self.startTime
-    }
-    
-    func countdown() {
-    }
-    
     func calcStartSecondsLeft(startTime: Int){
         
         let currentDate = Date()

@@ -125,7 +125,7 @@ class CountdownVC: UIViewController {
                     DispatchQueue.main.async(execute: {() -> Void in
                         
                         //TODO: Add in behavior to display weather result
-                        self.weatherLabel?.text = (currentForecast.currently?.icon).map { $0.rawValue }
+                        //self.weatherLabel?.text = (currentForecast.currently?.icon).map { $0.rawValue }
                         let currentWeather = (currentForecast.currently?.icon).map { $0.rawValue }
                         
                         if currentWeather == "clear-day" || currentWeather == "clear-night" || currentWeather == "partly-cloudy-day" || currentWeather == "partly-cloudy-night" {
