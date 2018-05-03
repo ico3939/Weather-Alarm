@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3F1F69BE209B07D200F96744 /* AlarmListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5EC91420894E7C00617515 /* AlarmListVC.swift */; };
-		3F1F69C0209B0D1100F96744 /* WeatherSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1F69BF209B0D1100F96744 /* WeatherSettingsVC.swift */; };
 		3F76C88B207C024900277468 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F76C88A207C024900277468 /* AppDelegate.swift */; };
 		3F76C88D207C024900277468 /* CountDownVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F76C88C207C024900277468 /* CountDownVC.swift */; };
 		3F76C890207C024900277468 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F76C88E207C024900277468 /* Main.storyboard */; };
@@ -16,6 +15,12 @@
 		3F76C895207C024900277468 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F76C893207C024900277468 /* LaunchScreen.storyboard */; };
 		3FA8D68C20967F9B00092D45 /* AlarmCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA8D68A20967F9B00092D45 /* AlarmCell.swift */; };
 		3FA8D68D20967F9B00092D45 /* AlarmCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FA8D68B20967F9B00092D45 /* AlarmCell.xib */; };
+		3FB534B2209B742A00919473 /* Vivaldi - The_Four_Seasons - Spring_Mvt_1_Allegro-(clear).mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3FB534B1209B742A00919473 /* Vivaldi - The_Four_Seasons - Spring_Mvt_1_Allegro-(clear).mp3 */; };
+		3FB534B4209B742E00919473 /* Vivaldi - The_Four_Seasons - Winter_Mvt_3_Allegro-(clouds).mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3FB534B3209B742E00919473 /* Vivaldi - The_Four_Seasons - Winter_Mvt_3_Allegro-(clouds).mp3 */; };
+		3FB534B6209B743300919473 /* Vivaldi - The_Four_Seasons - Spring_Mvt_2_Largo-(rain).mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3FB534B5209B743300919473 /* Vivaldi - The_Four_Seasons - Spring_Mvt_2_Largo-(rain).mp3 */; };
+		3FB534B8209B743D00919473 /* Vivaldi - The_Four_Seasons - Winter_Mvt_1-(snow).mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3FB534B7209B743D00919473 /* Vivaldi - The_Four_Seasons - Winter_Mvt_1-(snow).mp3 */; };
+		3FB534BA209B744300919473 /* Vivaldi - The_Four_Seasons - Summer_Mvt_3-(storm).mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3FB534B9209B744300919473 /* Vivaldi - The_Four_Seasons - Summer_Mvt_3-(storm).mp3 */; };
+		3FB534BC209B744A00919473 /* Wagner - The_Ride_Of_The_Valkyries-(wind).mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3FB534BB209B744A00919473 /* Wagner - The_Ride_Of_The_Valkyries-(wind).mp3 */; };
 		3FC1091D209A75740095C0F0 /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC1091C209A75740095C0F0 /* WeatherManager.swift */; };
 		3FC1091F209A79660095C0F0 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC1091E209A79660095C0F0 /* SoundManager.swift */; };
 		3FD60A262080134600756DEF /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FD60A252080134600756DEF /* Alarm.swift */; };
@@ -27,7 +32,6 @@
 
 /* Begin PBXFileReference section */
 		0D8F84F5C14CCA38CEC844FA /* Pods-Weather Alarm.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weather Alarm.release.xcconfig"; path = "Pods/Target Support Files/Pods-Weather Alarm/Pods-Weather Alarm.release.xcconfig"; sourceTree = "<group>"; };
-		3F1F69BF209B0D1100F96744 /* WeatherSettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherSettingsVC.swift; sourceTree = "<group>"; };
 		3F5EC91420894E7C00617515 /* AlarmListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmListVC.swift; sourceTree = "<group>"; };
 		3F76C887207C024900277468 /* Weather Alarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Weather Alarm.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F76C88A207C024900277468 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -38,6 +42,12 @@
 		3F76C896207C024900277468 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3FA8D68A20967F9B00092D45 /* AlarmCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmCell.swift; sourceTree = "<group>"; };
 		3FA8D68B20967F9B00092D45 /* AlarmCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlarmCell.xib; sourceTree = "<group>"; };
+		3FB534B1209B742A00919473 /* Vivaldi - The_Four_Seasons - Spring_Mvt_1_Allegro-(clear).mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Vivaldi - The_Four_Seasons - Spring_Mvt_1_Allegro-(clear).mp3"; sourceTree = "<group>"; };
+		3FB534B3209B742E00919473 /* Vivaldi - The_Four_Seasons - Winter_Mvt_3_Allegro-(clouds).mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Vivaldi - The_Four_Seasons - Winter_Mvt_3_Allegro-(clouds).mp3"; sourceTree = "<group>"; };
+		3FB534B5209B743300919473 /* Vivaldi - The_Four_Seasons - Spring_Mvt_2_Largo-(rain).mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Vivaldi - The_Four_Seasons - Spring_Mvt_2_Largo-(rain).mp3"; sourceTree = "<group>"; };
+		3FB534B7209B743D00919473 /* Vivaldi - The_Four_Seasons - Winter_Mvt_1-(snow).mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Vivaldi - The_Four_Seasons - Winter_Mvt_1-(snow).mp3"; sourceTree = "<group>"; };
+		3FB534B9209B744300919473 /* Vivaldi - The_Four_Seasons - Summer_Mvt_3-(storm).mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Vivaldi - The_Four_Seasons - Summer_Mvt_3-(storm).mp3"; sourceTree = "<group>"; };
+		3FB534BB209B744A00919473 /* Wagner - The_Ride_Of_The_Valkyries-(wind).mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Wagner - The_Ride_Of_The_Valkyries-(wind).mp3"; sourceTree = "<group>"; };
 		3FC1091C209A75740095C0F0 /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
 		3FC1091E209A79660095C0F0 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 		3FD60A252080134600756DEF /* Alarm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
@@ -71,6 +81,7 @@
 		3F76C87E207C024900277468 = {
 			isa = PBXGroup;
 			children = (
+				A28FD74C20858755008B9D3B /* Default_Alarm_Tones */,
 				A28FD74920858675008B9D3B /* Sounds */,
 				3F76C889207C024900277468 /* Weather Alarm */,
 				3F76C888207C024900277468 /* Products */,
@@ -126,7 +137,12 @@
 		A28FD74920858675008B9D3B /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				A28FD74C20858755008B9D3B /* Default_Alarm_Tones */,
+				3FB534BB209B744A00919473 /* Wagner - The_Ride_Of_The_Valkyries-(wind).mp3 */,
+				3FB534B9209B744300919473 /* Vivaldi - The_Four_Seasons - Summer_Mvt_3-(storm).mp3 */,
+				3FB534B7209B743D00919473 /* Vivaldi - The_Four_Seasons - Winter_Mvt_1-(snow).mp3 */,
+				3FB534B5209B743300919473 /* Vivaldi - The_Four_Seasons - Spring_Mvt_2_Largo-(rain).mp3 */,
+				3FB534B3209B742E00919473 /* Vivaldi - The_Four_Seasons - Winter_Mvt_3_Allegro-(clouds).mp3 */,
+				3FB534B1209B742A00919473 /* Vivaldi - The_Four_Seasons - Spring_Mvt_1_Allegro-(clear).mp3 */,
 			);
 			path = Sounds;
 			sourceTree = "<group>";
@@ -137,7 +153,6 @@
 				3F76C88C207C024900277468 /* CountDownVC.swift */,
 				3FE1B65220866E8B0089B0EC /* AddAlarmVC.swift */,
 				3F5EC91420894E7C00617515 /* AlarmListVC.swift */,
-				3F1F69BF209B0D1100F96744 /* WeatherSettingsVC.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -212,6 +227,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				A28FD74D20858755008B9D3B /* Default_Alarm_Tones in Resources */,
+				3FB534B2209B742A00919473 /* Vivaldi - The_Four_Seasons - Spring_Mvt_1_Allegro-(clear).mp3 in Resources */,
+				3FB534B4209B742E00919473 /* Vivaldi - The_Four_Seasons - Winter_Mvt_3_Allegro-(clouds).mp3 in Resources */,
+				3FB534B6209B743300919473 /* Vivaldi - The_Four_Seasons - Spring_Mvt_2_Largo-(rain).mp3 in Resources */,
+				3FB534B8209B743D00919473 /* Vivaldi - The_Four_Seasons - Winter_Mvt_1-(snow).mp3 in Resources */,
+				3FB534BA209B744300919473 /* Vivaldi - The_Four_Seasons - Summer_Mvt_3-(storm).mp3 in Resources */,
+				3FB534BC209B744A00919473 /* Wagner - The_Ride_Of_The_Valkyries-(wind).mp3 in Resources */,
 				3F76C895207C024900277468 /* LaunchScreen.storyboard in Resources */,
 				3F76C892207C024900277468 /* Assets.xcassets in Resources */,
 				3FA8D68D20967F9B00092D45 /* AlarmCell.xib in Resources */,
@@ -267,7 +288,6 @@
 			files = (
 				3F76C88D207C024900277468 /* CountDownVC.swift in Sources */,
 				3FC1091D209A75740095C0F0 /* WeatherManager.swift in Sources */,
-				3F1F69C0209B0D1100F96744 /* WeatherSettingsVC.swift in Sources */,
 				3FE1B65320866E8B0089B0EC /* AddAlarmVC.swift in Sources */,
 				3FA8D68C20967F9B00092D45 /* AlarmCell.swift in Sources */,
 				3F76C88B207C024900277468 /* AppDelegate.swift in Sources */,

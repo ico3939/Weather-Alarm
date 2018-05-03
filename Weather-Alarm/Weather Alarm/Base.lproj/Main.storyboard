@@ -6,53 +6,59 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Kailasa.ttc">
-            <string>Kailasa-Bold</string>
+        <array key="HiraginoKakuGothic.ttc">
+            <string>HiraginoSans-W3</string>
         </array>
     </customFonts>
     <scenes>
         <!--CountdownViewController-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController title="CountdownViewController" id="BYZ-38-t0r" customClass="CountdownVC" customModule="Weather_Alarm" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="countdownVC" title="CountdownViewController" id="BYZ-38-t0r" customClass="CountdownVC" customModule="Weather_Alarm" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="asj-6U-lOZ">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qxk-7G-o0Y" userLabel="TimeLabel">
-                                <rect key="frame" x="57" y="258" width="261" height="85"/>
-                                <fontDescription key="fontDescription" name="Kailasa-Bold" family="Kailasa" pointSize="65"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
+                                <rect key="frame" x="42.5" y="118" width="290" height="66"/>
+                                <rect key="contentStretch" x="0.0" y="1" width="1" height="1"/>
+                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="65"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="highlightedColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <size key="shadowOffset" width="2" height="1"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Weather:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u2T-8y-aI2">
-                                <rect key="frame" x="13" y="87" width="188" height="29"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="________" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z44-co-yq5">
-                                <rect key="frame" x="217" y="87" width="83" height="29"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hSk-YA-O7g">
+                                <rect key="frame" x="128" y="514" width="119" height="111"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="111" id="C8S-qg-35B"/>
+                                </constraints>
+                                <state key="normal" title="stopAlarmButton" image="stop-flat"/>
+                                <connections>
+                                    <action selector="turnOffAlarm:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DGJ-EF-1VG"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.76305456606217614" green="0.76305456606217614" blue="0.76305456606217614" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Qxk-7G-o0Y" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="238" id="28H-AA-Hoe"/>
-                            <constraint firstItem="u2T-8y-aI2" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="67" id="7sf-7T-fNY"/>
-                            <constraint firstItem="u2T-8y-aI2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="13" id="C8Y-s3-PQJ"/>
+                            <constraint firstItem="Qxk-7G-o0Y" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="54" id="28H-AA-Hoe"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="hSk-YA-O7g" secondAttribute="bottom" constant="42" id="7dV-l9-9fK"/>
                             <constraint firstItem="Qxk-7G-o0Y" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Cd8-dV-UHn"/>
-                            <constraint firstItem="Z44-co-yq5" firstAttribute="leading" secondItem="u2T-8y-aI2" secondAttribute="trailing" constant="16" id="Gd7-JR-ino"/>
+                            <constraint firstItem="asj-6U-lOZ" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="E4f-mo-uua"/>
+                            <constraint firstItem="asj-6U-lOZ" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="375:667" id="Gl7-Sv-T69"/>
+                            <constraint firstItem="hSk-YA-O7g" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="128" id="Id5-9F-N0M"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Qxk-7G-o0Y" secondAttribute="trailing" id="JNJ-cL-R23"/>
+                            <constraint firstItem="hSk-YA-O7g" firstAttribute="centerX" secondItem="Qxk-7G-o0Y" secondAttribute="centerX" id="MyJ-NB-Nzf"/>
                             <constraint firstItem="Qxk-7G-o0Y" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="UHY-mo-Ts5"/>
-                            <constraint firstItem="u2T-8y-aI2" firstAttribute="baseline" secondItem="Z44-co-yq5" secondAttribute="baseline" id="URq-V4-Zd7"/>
+                            <constraint firstItem="asj-6U-lOZ" firstAttribute="centerX" secondItem="hSk-YA-O7g" secondAttribute="centerX" id="Ymc-cU-LnS"/>
+                            <constraint firstItem="asj-6U-lOZ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="qKQ-Xs-Ud4"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -65,48 +71,16 @@
                     </navigationItem>
                     <connections>
                         <outlet property="TimeLabel" destination="Qxk-7G-o0Y" id="HKF-Xa-ZsZ"/>
-                        <outlet property="setAlarmButton" destination="9wm-kd-zht" id="KKV-Nq-qfW"/>
+                        <outlet property="alarmButtonView" destination="hSk-YA-O7g" id="gHg-vK-77p"/>
+                        <outlet property="backgroundImage" destination="asj-6U-lOZ" id="Rvf-Ug-CBN"/>
+                        <outlet property="setAlarmButton" destination="9wm-kd-zht" id="ja4-8t-3at"/>
                         <outlet property="timeLabel" destination="Qxk-7G-o0Y" id="3hP-vI-coW"/>
-                        <outlet property="weatherLabel" destination="Z44-co-yq5" id="Dej-Hf-v9s"/>
                         <segue destination="CNp-AF-T9j" kind="presentation" identifier="alarmListSegue" modalTransitionStyle="crossDissolve" id="wKB-EP-H5j"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="462" y="-458"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="434-FU-F05">
-            <objects>
-                <navigationController id="vMK-an-WsZ" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iGf-Tr-HdT">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="presentation" id="eul-be-o50"/>
-                        <segue destination="bpL-60-Ev7" kind="relationship" relationship="rootViewController" id="lQt-Cq-VC2"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="k3E-wb-Tak" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="462" y="-1254"/>
-        </scene>
-        <!--Weather SettingsVC-->
-        <scene sceneID="kjI-EN-8Kg">
-            <objects>
-                <viewController id="bpL-60-Ev7" customClass="WeatherSettingsVC" customModule="Weather_Alarm" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="t3l-PB-9oK">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <viewLayoutGuide key="safeArea" id="K8P-FI-trk"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="gBd-ty-AxE"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="NjP-eD-Ynz" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1486" y="-1254"/>
+            <point key="canvasLocation" x="461.60000000000002" y="-458.32083958020991"/>
         </scene>
         <!--Alarms-->
         <scene sceneID="aRf-7b-9sE">
@@ -116,29 +90,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="H15-jm-TOP">
-                            <rect key="frame" x="0.0" y="72" width="375" height="127"/>
+                            <rect key="frame" x="0.0" y="72" width="375" height="52"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jXu-rc-3BP">
-                                    <rect key="frame" x="312" y="5" width="49" height="31"/>
+                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jXu-rc-3BP">
+                                    <rect key="frame" x="318" y="11" width="51" height="31"/>
                                     <connections>
                                         <action selector="sunriseSwitchPressed:" destination="FYu-Gf-C9t" eventType="valueChanged" id="lJ4-tI-cXh"/>
                                     </connections>
                                 </switch>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Set alarm for sunrise?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QeA-F1-3QK">
-                                    <rect key="frame" x="129" y="12" width="167" height="21"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set alarm for sunrise?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QeA-F1-3QK">
+                                    <rect key="frame" x="137" y="16" width="158" height="20"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="trailing" secondItem="jXu-rc-3BP" secondAttribute="trailing" constant="16" id="4Du-WO-zdd"/>
-                                <constraint firstItem="QeA-F1-3QK" firstAttribute="top" secondItem="H15-jm-TOP" secondAttribute="top" constant="12" id="4W3-nL-fcq"/>
-                                <constraint firstItem="jXu-rc-3BP" firstAttribute="top" secondItem="H15-jm-TOP" secondAttribute="top" constant="5" id="8yI-Sl-LhE"/>
-                                <constraint firstItem="jXu-rc-3BP" firstAttribute="leading" secondItem="QeA-F1-3QK" secondAttribute="trailing" constant="17" id="dbX-1a-K3G"/>
+                                <constraint firstItem="QeA-F1-3QK" firstAttribute="top" secondItem="H15-jm-TOP" secondAttribute="top" constant="16" id="4W3-nL-fcq"/>
+                                <constraint firstItem="jXu-rc-3BP" firstAttribute="top" secondItem="H15-jm-TOP" secondAttribute="top" constant="11" id="8yI-Sl-LhE"/>
+                                <constraint firstItem="jXu-rc-3BP" firstAttribute="centerY" secondItem="H15-jm-TOP" secondAttribute="centerY" id="9mr-ae-GmI"/>
+                                <constraint firstItem="jXu-rc-3BP" firstAttribute="leading" secondItem="QeA-F1-3QK" secondAttribute="trailing" constant="23" id="kRw-Xk-RdG"/>
+                                <constraint firstItem="jXu-rc-3BP" firstAttribute="centerX" secondItem="H15-jm-TOP" secondAttribute="centerX" constant="155" id="uTP-Ca-a2L"/>
                             </constraints>
                         </view>
                         <prototypes>
@@ -161,7 +137,7 @@
                         <barButtonItem key="leftBarButtonItem" title="Back" id="2ub-cu-pfE">
                             <connections>
                                 <action selector="unwindWithCancelTapped:" destination="99P-u6-cxV" id="iNe-mH-txS"/>
-                                <segue destination="99P-u6-cxV" kind="unwind" unwindAction="unwindWithBackTappedWithSegue:" id="thP-9r-LsJ"/>
+                                <segue destination="99P-u6-cxV" kind="unwind" identifier="unwindToCountdownSegue" unwindAction="unwindWithBackTappedWithSegue:" id="thP-9r-LsJ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -201,7 +177,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="684-Xg-UQL">
-                                <rect key="frame" x="0.0" y="204" width="375" height="162"/>
+                                <rect key="frame" x="0.0" y="209" width="375" height="162"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="162" id="6Wa-sW-9dK"/>
                                 </constraints>
@@ -210,7 +186,7 @@
                                 </date>
                             </datePicker>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pick your new alarm time:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kMb-Rm-9X0">
-                                <rect key="frame" x="61" y="149.5" width="267" height="28"/>
+                                <rect key="frame" x="61" y="149.5" width="267" height="27.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="23"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -218,12 +194,15 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="684-Xg-UQL" firstAttribute="leading" secondItem="yIg-J7-H4s" secondAttribute="leading" id="6cJ-rq-IqM"/>
+                            <constraint firstItem="kMb-Rm-9X0" firstAttribute="top" secondItem="yIg-J7-H4s" secondAttribute="top" constant="85.5" id="8mB-Cn-twk"/>
+                            <constraint firstItem="684-Xg-UQL" firstAttribute="centerX" secondItem="yIg-J7-H4s" secondAttribute="centerX" id="AAF-pZ-Q8N"/>
                             <constraint firstItem="yIg-J7-H4s" firstAttribute="trailing" secondItem="kMb-Rm-9X0" secondAttribute="trailing" constant="47" id="CEe-GZ-sdQ"/>
-                            <constraint firstItem="yIg-J7-H4s" firstAttribute="bottom" secondItem="684-Xg-UQL" secondAttribute="bottom" constant="301" id="Pnv-Cw-aKQ"/>
                             <constraint firstAttribute="trailing" secondItem="684-Xg-UQL" secondAttribute="trailing" id="gFo-6B-Ks6"/>
+                            <constraint firstItem="yIg-J7-H4s" firstAttribute="trailing" secondItem="684-Xg-UQL" secondAttribute="trailing" id="iFa-zO-od7"/>
                             <constraint firstItem="kMb-Rm-9X0" firstAttribute="leading" secondItem="yIg-J7-H4s" secondAttribute="leading" constant="61" id="kKA-go-gL0"/>
                             <constraint firstItem="684-Xg-UQL" firstAttribute="leading" secondItem="iYK-xY-KQF" secondAttribute="leading" id="nNN-EE-X2Z"/>
-                            <constraint firstItem="684-Xg-UQL" firstAttribute="firstBaseline" secondItem="kMb-Rm-9X0" secondAttribute="baseline" constant="32" id="pCk-0W-I8x"/>
+                            <constraint firstItem="684-Xg-UQL" firstAttribute="top" secondItem="kMb-Rm-9X0" secondAttribute="bottom" constant="32" id="qit-0U-bK4"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="yIg-J7-H4s"/>
                     </view>
@@ -283,7 +262,7 @@
             <point key="canvasLocation" x="2438" y="345"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="eul-be-o50"/>
-    </inferredMetricsTieBreakers>
+    <resources>
+        <image name="stop-flat" width="256" height="256"/>
+    </resources>
 </document>

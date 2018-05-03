@@ -16,21 +16,23 @@ class AlarmListVC: UITableViewController, AlarmCellDelegate {
     @IBOutlet var alarmsTableView: UITableView!
     @IBOutlet weak var sunriseSwitch: UISwitch!
     var timeLabel: UILabel!
+    var alarmButtonView: UIButton!
     
     
     //MARK: ivars
     // ----------
     let alarmCell = "AlarmCell"
     let myAddAlarmSegue = "addAlarmSegue" // segue to the add alarm screen
-    let weatherManager = WeatherManager()
-    let soundManager = SoundManager()
     
+    var weatherManager:WeatherManager!
+    var soundManager: SoundManager!
     var alarms:[Alarm]!
     var runningAlarms: [Alarm]!
     var currentAlarm: Alarm?
     var timer:Timer?
     var selectedRow = IndexPath()
     var isTimeRunning: Bool! // this will be used to make sure only one timer is created at a time
+    var isComplete: Bool!
 
     
     override func viewDidLoad() {
@@ -52,19 +54,19 @@ class AlarmListVC: UITableViewController, AlarmCellDelegate {
         alarmsTableView.register(nibName, forCellReuseIdentifier: alarmCell)
         
         // if there is a sunrise alarm, do not include it in the table
-        for alarm in alarms {
-            
-            if alarm.timeOfDay == "Sunrise" {
+        if !alarms.isEmpty {
+            for alarm in alarms {
                 
-                let indexPath = IndexPath(row: alarms.index(of: alarm)!, section: 0)
-                self.alarmsTableView.deleteRows(at: [indexPath], with: .automatic)
-                sunriseSwitch.isOn = true
-                break
-            }
-            else {
-                sunriseSwitch.isOn = false
+                if alarm.timeOfDay == "Sunrise" {
+                    sunriseSwitch.isOn = true
+                    break
+                }
+                else {
+                    sunriseSwitch.isOn = false
+                }
             }
         }
+        
         
         //add navBar elements
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addAlarm))
@@ -80,12 +82,23 @@ class AlarmListVC: UITableViewController, AlarmCellDelegate {
     }
     
     func timerComplete() {
+        isComplete = true
         isTimeRunning = false
+        alarmButtonView.isHidden = false
         timer?.invalidate()
         currentAlarm?.isRunning = false
+        runningAlarms.remove(at: 0)
+        
+        
+        if runningAlarms.count >= 1 {
+            currentAlarm = runningAlarms[1]
+            currentAlarm?.calcStartSecondsLeft(startTime: (currentAlarm?.startTime)!)
+            currentAlarm?.isRunning = true
+            runTimer()
+        }
         
         // TODO: Add behavior for when the timer is finished running
-        
+        self.soundManager.playAlarm(soundFileName: self.weatherManager.chooseAlarmBasedOnWeather())
     }
     
     func saveAlarms() {
@@ -111,6 +124,9 @@ class AlarmListVC: UITableViewController, AlarmCellDelegate {
             targetController.runningAlarms = self.runningAlarms
             targetController.currentAlarm = self.currentAlarm
             targetController.isTimeRunning = self.isTimeRunning
+            targetController.soundManager = self.soundManager
+            targetController.weatherManager = self.weatherManager
+            targetController.isComplete = self.isComplete
             
             if currentAlarm == nil {
                 targetController.timeLabel.text = targetController.timeString(time: 0)
@@ -139,17 +155,23 @@ class AlarmListVC: UITableViewController, AlarmCellDelegate {
         return cell
     }
     
-    
     func alarmButtonClicked(alarm: Alarm) {
         
         alarm.switchOnOff()
         // start running the timer
         if alarm.isRunning {
             
+            if alarm.timeOfDay == "Sunrise" {
+                sunriseSwitch.setOn(true, animated: true)
+            }
             insertNewAlarm(alarm: alarm)
             
         }
         else {
+            
+            if alarm.timeOfDay == "Sunrise" {
+                sunriseSwitch.setOn(false, animated: true)
+            }
             
             runningAlarms = runningAlarms.filter({$0 !== alarm})
             
@@ -232,6 +254,9 @@ class AlarmListVC: UITableViewController, AlarmCellDelegate {
         if self.sunriseSwitch.isOn {
             let startTime = weatherManager.getNextSunriseTime()
             let sunriseAlarm = Alarm(startTime: startTime, timeOfDay: "Sunrise")
+            sunriseAlarm.switchOnOff()
+            alarms.append(sunriseAlarm)
+            alarms.sort{$0.currentTimeLeft < $1.currentTimeLeft}
             alarmButtonClicked(alarm: sunriseAlarm)
         }
         else {
@@ -244,6 +269,7 @@ class AlarmListVC: UITableViewController, AlarmCellDelegate {
                     break
                 }
             }
+
             
             runningAlarms = runningAlarms.filter({$0 !== sunriseAlarm})
             
@@ -305,6 +331,11 @@ class AlarmListVC: UITableViewController, AlarmCellDelegate {
     @objc func deleteAlarm() {
         // delete the row from the data source
         let removedAlarm = alarms[selectedRow.row]
+        
+        // if the removed alarm is for sunrise, change the switch as well
+        if removedAlarm.timeOfDay == "Sunrise" {
+            sunriseSwitch.setOn(false, animated: true)
+        }
         
         // adjust the currently running alarms if the deleted one is running
         if removedAlarm.isRunning {

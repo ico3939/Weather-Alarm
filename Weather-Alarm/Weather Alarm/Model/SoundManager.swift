@@ -19,7 +19,6 @@ class SoundManager: NSObject {
     // MARK: Helper Functions
     // ----------------------
     func playAlarm(soundFileName: String) {
-        
         guard let url = Bundle.main.url(forResource: soundFileName, withExtension: "mp3") else { return }
         
         do {

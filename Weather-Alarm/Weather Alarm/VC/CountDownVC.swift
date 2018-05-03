@@ -16,26 +16,41 @@ class CountdownVC: UIViewController {
     // -----------
     let myAddAlarmSegue = "addAlarmSegue" // segue to the add alarm screen
     let myAlarmListSegue = "alarmListSegue" // segue to the alarm pick screen
-    let weatherManager = WeatherManager()
-    let soundManager = SoundManager()
     
+    var weatherManager = WeatherManager() {
+        didSet {
+            self.changeBackground(currentWeather: self.weatherManager.currentWeather!)
+        }
+    }
+    var soundManager = SoundManager()
     var currentAlarm:Alarm?
     var alarms = [Alarm]() // an array to hold all saved alarms
     var runningAlarms = [Alarm]()
     var secondsLeft = 0 // this variable will hold a starting value of seconds. It can be any amount above zero
     var timer = Timer()
     var isTimeRunning = false // this will be used to make sure only one timer is created at a time
+    var isComplete = false // bool for once a timer is completed
     var soundFilePath: String?
     
     
     // MARK: Outlets
     // -------------
+    @IBOutlet weak var backgroundImage: UIImageView!
     @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var weatherLabel: UILabel!
+    @IBOutlet weak var alarmButtonView: UIButton!
     @IBOutlet weak var setAlarmButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        // shows and hides the alarm button once the view is shown
+        if !isComplete {
+            alarmButtonView.isHidden = true
+        }
+        else {
+            alarmButtonView.isHidden = false
+        }
         
         // load in alarms
         let fileName = "allAlarms.archive"
@@ -101,12 +116,57 @@ class CountdownVC: UIViewController {
     }
     
     func timerComplete() {
+        isComplete = true
         isTimeRunning = false
+        alarmButtonView.isHidden = false
         timer.invalidate()
         currentAlarm?.isRunning = false
+        runningAlarms.remove(at: 0)
+        
+        
+        if runningAlarms.count >= 1 {
+            currentAlarm = runningAlarms[1]
+            currentAlarm?.calcStartSecondsLeft(startTime: (currentAlarm?.startTime)!)
+            currentAlarm?.isRunning = true
+            runTimer()
+        }
         
         
         // TODO: Add functionality for once the timer is finished running
+        self.soundManager.playAlarm(soundFileName: self.weatherManager.chooseAlarmBasedOnWeather())
+        self.alarmButtonView.isHidden = false
+    }
+    
+    func changeBackground(currentWeather: String) {
+        if currentWeather == "clear-day" || currentWeather == "clear-night" || currentWeather == "partly-cloudy-day" || currentWeather == "partly-cloudy-night" {
+            
+            self.backgroundImage.image = #imageLiteral(resourceName: "gradient-sunny")
+            
+        }
+        else if currentWeather == "cloudy" || currentWeather == "fog" {
+            
+            self.backgroundImage.image = #imageLiteral(resourceName: "gradient-cloudy")
+        }
+        else if currentWeather == "rain"{
+            
+            self.backgroundImage.image = #imageLiteral(resourceName: "gradient-stormy")
+            
+        }
+        else if currentWeather == "thunderstorm" || currentWeather == "tornado" || currentWeather == "hail" {
+            self.backgroundImage.image = #imageLiteral(resourceName: "gradient-stormy")
+            
+        }
+        else if currentWeather == "snow" || currentWeather == "sleet" {
+            
+            self.backgroundImage.image = #imageLiteral(resourceName: "gradient-snowy")
+            
+        }
+        else if currentWeather == "windy" {
+            
+            self.backgroundImage.image = #imageLiteral(resourceName: "gradient-windy")
+            
+        }
+        
     }
     
     // MARK: IBActions
@@ -118,6 +178,12 @@ class CountdownVC: UIViewController {
     
     @IBAction func setAlarmButtonClicked(_ sender: Any) {
         performSegue(withIdentifier: myAlarmListSegue, sender: nil)
+    }
+    
+    @IBAction func turnOffAlarm(_ sender: Any) {
+        alarmButtonView.isHidden = true
+        isComplete = false
+        soundManager.stopAlarm()
     }
     
     
@@ -134,7 +200,10 @@ class CountdownVC: UIViewController {
             targetController.currentAlarm = self.currentAlarm
             targetController.runningAlarms = self.runningAlarms
             targetController.isTimeRunning = self.isTimeRunning
-            
+            targetController.soundManager = self.soundManager
+            targetController.weatherManager = self.weatherManager
+            targetController.isComplete = self.isComplete
+            targetController.alarmButtonView = self.alarmButtonView
 
         }
     }

@@ -14,12 +14,13 @@ class WeatherManager: NSObject {
     
     // MARK: ivars
     // -----------
-    var client = DarkSkyClient(apiKey: "327180fccdc777b85e2b1fdbb6adab37")
+    var client = DarkSkyClient(apiKey: "5a58a30e4b84061571f5368dc89eacb5")
     var locationManager = CLLocationManager()
     
     var forecast: Forecast?
     var currentWeather: String?
     var isDelegateSet: Bool!
+    var currentTemperature: Int?
     
     // MARK: Constructor
     // -----------------
@@ -37,17 +38,19 @@ class WeatherManager: NSObject {
     
     // MARK: Helper Functions
     // ----------------------
-    func getWeatherInfo(date: Date) {
-        // Once the user's location is known, the api will check for current weather condition at that location
+    func getWeatherInfo(date: Date, isDataBlock: Bool) {
         
-        print(date)
-        if isDelegateSet {
-            self.client.getForecast(latitude: (locationManager.location?.coordinate.latitude)!, longitude: (locationManager.location?.coordinate.longitude)!, time: date, completion: { result in
+        // Once the user's location is known, the api will check for current weather condition at that location
+        if isDataBlock {
+            
+            self.client.getForecast(latitude: (self.locationManager.location?.coordinate.latitude)!, longitude: (self.locationManager.location?.coordinate.longitude)!, completion: { result in
                 switch result {
                 case .success(let currentForecast, _):
                     // we got the current forecast
-                    print("\(String(describing: currentForecast.currently?.summary))")
+                    print("\(String(describing: currentForecast.currently?.icon?.rawValue))")
                     self.forecast = currentForecast
+                    self.currentWeather = (self.forecast?.currently?.icon).map { $0.rawValue }
+                    self.currentTemperature = Int((self.forecast?.currently?.temperature)!)
                     
                 case .failure(let error):
                     // there was an error
@@ -56,14 +59,31 @@ class WeatherManager: NSObject {
                 }
             })
         }
+        
+        else {
+            self.client.getForecast(latitude: (self.locationManager.location?.coordinate.latitude)!, longitude: (self.locationManager.location?.coordinate.longitude)!, time: date, completion: { result in
+                switch result {
+                case .success(let currentForecast, _):
+                    // we got the current forecast
+                    print("\(String(describing: currentForecast.currently?.icon?.rawValue))")
+                    self.forecast = currentForecast
+                    self.currentWeather = (self.forecast?.currently?.icon).map { $0.rawValue }
+                    self.currentTemperature = Int((self.forecast?.currently?.temperature)!)
+                    
+                case .failure(let error):
+                    // there was an error
+                    print("\(error)")
+                    return
+                }
+            })
+        }
+        
 
     }
     
     func chooseAlarmBasedOnWeather() -> String { // return a string for the url of the sound clip based on the current weather condition
         
         if isDelegateSet {
-            let currentDate = Date()
-            getWeatherInfo(date: currentDate)
             
             if currentWeather == "clear-day" || currentWeather == "clear-night" || currentWeather == "partly-cloudy-day" || currentWeather == "partly-cloudy-night" {
                 
@@ -102,6 +122,8 @@ class WeatherManager: NSObject {
             self.locationManager.startUpdatingLocation()
             print("location = \(String(describing: self.locationManager.location))")
             
+            getWeatherInfo(date: Date(), isDataBlock: true)
+            
             return true
         }
         return false
@@ -111,11 +133,7 @@ class WeatherManager: NSObject {
         
         if isDelegateSet {
             
-            let tomorrowDate = Date().tomorrow
-            getWeatherInfo(date: tomorrowDate)
-            
-            
-            if let absoluteSunriseTime = self.forecast?.currently?.sunriseTime {
+            if let absoluteSunriseTime = self.forecast?.daily?.data[1].sunriseTime {
                 
                 let currentDate = Date()
                 let cal = Calendar(identifier: .gregorian)
@@ -128,8 +146,7 @@ class WeatherManager: NSObject {
                     startTimeSeconds -= remainder
                 }
                 return startTimeSeconds
-                
-                //return Int(Date().timeIntervalSince(absoluteSunriseTime)) // returns the time until sunrise tomorrow
+            
             }
             
         }
@@ -143,7 +160,7 @@ class WeatherManager: NSObject {
             
             let currentDate = Date()
             let alarmDate = Date(timeInterval: TimeInterval(timeRemaining), since: currentDate)
-            getWeatherInfo(date: alarmDate)
+            getWeatherInfo(date: alarmDate, isDataBlock: false)
             
             if (forecast?.currently?.precipitationIntensity)! > 0.3  { // indicates that there will be more than 0.3 inches of water per hour at that time (what is considered heavy precipitation)
                 
