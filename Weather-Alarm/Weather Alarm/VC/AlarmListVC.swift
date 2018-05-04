@@ -54,17 +54,20 @@ class AlarmListVC: UITableViewController, AlarmCellDelegate {
         alarmsTableView.register(nibName, forCellReuseIdentifier: alarmCell)
         
         // if there is a sunrise alarm, do not include it in the table
-        if !alarms.isEmpty {
-            for alarm in alarms {
-                
-                if alarm.timeOfDay == "Sunrise" {
-                    sunriseSwitch.isOn = true
-                    break
-                }
-                else {
-                    sunriseSwitch.isOn = false
-                }
+        
+        for alarm in runningAlarms {
+            
+            if alarm.timeOfDay == "Sunrise" {
+                sunriseSwitch.isOn = true
+                break
             }
+            else {
+                sunriseSwitch.isOn = false
+            }
+        }
+        
+        if !isTimeRunning {
+            sunriseSwitch.isOn = false
         }
         
         
@@ -91,10 +94,9 @@ class AlarmListVC: UITableViewController, AlarmCellDelegate {
         
         
         if runningAlarms.count >= 1 {
-            currentAlarm = runningAlarms[1]
+            currentAlarm = runningAlarms[0]
             currentAlarm?.calcStartSecondsLeft(startTime: (currentAlarm?.startTime)!)
             currentAlarm?.isRunning = true
-            runTimer()
         }
         
         // TODO: Add behavior for when the timer is finished running
@@ -249,6 +251,7 @@ class AlarmListVC: UITableViewController, AlarmCellDelegate {
             }
         }
     }
+    
     @IBAction func sunriseSwitchPressed(_ sender: Any) {
         
         if self.sunriseSwitch.isOn {
@@ -284,7 +287,7 @@ class AlarmListVC: UITableViewController, AlarmCellDelegate {
                 isTimeRunning = false
                 currentAlarm = nil
             }
-            alarms = alarms.filter({$0 !== sunriseAlarm})
+            
         }
         
     }

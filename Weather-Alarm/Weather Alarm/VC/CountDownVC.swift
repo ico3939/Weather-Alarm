@@ -125,10 +125,9 @@ class CountdownVC: UIViewController {
         
         
         if runningAlarms.count >= 1 {
-            currentAlarm = runningAlarms[1]
+            currentAlarm = runningAlarms[0]
             currentAlarm?.calcStartSecondsLeft(startTime: (currentAlarm?.startTime)!)
             currentAlarm?.isRunning = true
-            runTimer()
         }
         
         
@@ -184,6 +183,7 @@ class CountdownVC: UIViewController {
         alarmButtonView.isHidden = true
         isComplete = false
         soundManager.stopAlarm()
+        runTimer()
     }
     
     
