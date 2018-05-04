@@ -18,6 +18,7 @@ Milestone1:
   - refactor some code into separate classes
   
   
+  
 Milestone 3:
 - Features:
   - The user can create and save alarms
@@ -30,4 +31,4 @@ Milestone 3:
     - The main screen's background and dynamically change based on the weather information
     - A different tone is played depending on the weather if the timer runs out
     
-    
+   ![Milestone 3 screenshot](/Screens/Milestone3-1.png?raw=true "Milestone 3 screenshot")![Milestone 3 screenshot](/Screens/Milestone3-2.png?raw=true "Milestone 1 screenshot")![Milestone 3 screenshot](/Screens/Milestone3-3.png?raw=true "Milestone 1 screenshot")![Milestone 3 screenshot](/Screens/Milestone3-4.png?raw=true "Milestone 3 screenshot") 
